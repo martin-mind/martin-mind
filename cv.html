@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Martin La Rosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_shared.css" />
+  <style>
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --black:  #111111;
+      --gray-7: #444444;
+      --gray-5: #777777;
+      --gray-3: #AAAAAA;
+      --gray-1: #F0F0F0;
+      --white:  #FFFFFF;
+      --max:    760px;
+      --radius-chip: 100px;
+      /* chip palette — matches CV */
+      --chip-purple:  #EDE9FF;
+      --chip-teal:    #D6F5EE;
+      --chip-blue:    #D9EDFF;
+      --chip-peach:   #FFE8DC;
+      --chip-pink:    #FFE0EE;
+      --chip-yellow:  #FFF5CC;
+      --chip-sage:    #DDF0DC;
+      --chip-lavender:#F0E0FF;
+      --chip-slate:   #DDE8F0;
+      --chip-orange:  #FFEACC;
+      --chip-rose:    #FFD9D9;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(160deg, #FDEEED 0%, #FDF0E8 35%, #F8F0FF 70%, #FFFFFF 100%);
+      padding: 64px 24px 52px;
+      text-align: center;
+    }
+
+    .hero-name {
+      font-size: clamp(38px, 7vw, 58px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--gray-5);
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--gray-5);
+      margin-bottom: 20px;
+    }
+
+    .hero-meta-row span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .hero-links {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1.5px solid rgba(0,0,0,0.10);
+      background: rgba(255,255,255,0.7);
+      color: var(--black);
+      transition: background 0.15s, border-color 0.15s;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-pill:hover { background: rgba(255,255,255,0.95); border-color: rgba(0,0,0,0.2); }
+
+    .hero-pill svg { flex-shrink: 0; }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+
+    /* ─── SECTION ─── */
+    .section { padding: 44px 0 0; }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 540px) {
+      .section-header { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gray-3);
+      padding-top: 3px;
+    }
+
+    .section-body { flex: 1; }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: #EBEBEB;
+      margin: 44px 0 0;
+    }
+
+    /* ─── SUMMARY ─── */
+    .summary-text {
+      font-size: 14px;
+      color: var(--gray-7);
+      line-height: 1.75;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-groups { display: flex; flex-direction: column; gap: 14px; }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    @media (max-width: 540px) {
+      .skill-row { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    .skill-row-label {
+      font-size: 11px;
+      color: var(--gray-5);
+      font-weight: 500;
+      padding-top: 4px;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    .chip {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 4px 11px;
+      border-radius: var(--radius-chip);
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    /* chip colors */
+    .c-purple  { background: var(--chip-purple);  color: #5B3FCC; }
+    .c-teal    { background: var(--chip-teal);    color: #1A7A60; }
+    .c-blue    { background: var(--chip-blue);    color: #1A5FAA; }
+    .c-peach   { background: var(--chip-peach);   color: #A04020; }
+    .c-pink    { background: var(--chip-pink);    color: #A03060; }
+    .c-yellow  { background: var(--chip-yellow);  color: #806010; }
+    .c-sage    { background: var(--chip-sage);    color: #2A6A30; }
+    .c-lavender{ background: var(--chip-lavender);color: #7030A0; }
+    .c-slate   { background: var(--chip-slate);   color: #2A4A70; }
+    .c-orange  { background: var(--chip-orange);  color: #904010; }
+    .c-rose    { background: var(--chip-rose);    color: #903030; }
+
+    /* ─── EXPERIENCE ─── */
+    .exp-list { display: flex; flex-direction: column; gap: 28px; }
+
+    .exp-item {}
+
+    .exp-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 2px;
+    }
+
+    .exp-company {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .exp-dates {
+      font-size: 11.5px;
+      color: var(--gray-3);
+      white-space: nowrap;
+    }
+
+    .exp-role {
+      font-size: 12.5px;
+      color: var(--gray-5);
+      margin-bottom: 10px;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .exp-bullets li {
+      font-size: 13px;
+      color: var(--gray-7);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .exp-bullets li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--gray-3);
+      font-size: 10px;
+      top: 4px;
+    }
+
+    .exp-clients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    /* ─── EDUCATION ─── */
+    .edu-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .edu-school {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .edu-degree {
+      font-size: 12.5px;
+      color: var(--gray-5);
+      margin-top: 1px;
+    }
+
+    .edu-years {
+      font-size: 11.5px;
+      color: var(--gray-3);
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid #EBEBEB;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-copy { font-size: 11.5px; color: var(--gray-3); }
+    .footer-link { font-size: 11.5px; color: var(--gray-3); transition: color 0.15s; }
+    .footer-link:hover { color: var(--black); }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Martin La Rosa</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="cv.html" class="active">CV</a></li>
+        <li><a href="contact.html" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <header class="hero">
+    <h1 class="hero-name">Martin La Rosa</h1>
+    <p class="hero-title">Product Designer (UI-Focused) | Design Systems &amp; No-Code</p>
+
+    <div class="hero-meta-row">
+      <span>
+        <!-- pin -->
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1.5A4.5 4.5 0 0 0 3.5 6c0 3.25 4.5 8.5 4.5 8.5S12.5 9.25 12.5 6A4.5 4.5 0 0 0 8 1.5Zm0 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="currentColor"/></svg>
+        Lima, Perú
+      </span>
+      <span>
+        <!-- email -->
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="m1.5 5 6.5 4.5L14.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        martinmind.dg@gmail.com
+      </span>
+      <span>
+        <!-- phone -->
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 1.5h3l1.5 3.5-1.75 1.25C6.5 8.5 7.5 9.5 9.25 10.25L10.5 8.5 14 10v3c0 .83-.67 1.5-1.5 1.5C5.94 14.5 1.5 10.06 1.5 4.5 1.5 2.67 2.17 2 3 1.5Z" stroke="currentColor" stroke-width="1.5"/></svg>
+        +51 949 780 440
+      </span>
+    </div>
+
+    <div class="hero-links">
+      <a href="https://linkedin.com/in/martinlarosa" target="_blank" class="hero-pill">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 6.5V12M4.5 4v.5M7.5 12V9a2 2 0 0 1 4 0v3M7.5 6.5V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        /martinlarosa
+      </a>
+      <a href="https://uimartin.com" target="_blank" class="hero-pill">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M1.5 8h13M8 1.5C6.5 4 5.5 6 5.5 8s1 4 2.5 6.5M8 1.5C9.5 4 10.5 6 10.5 8s-1 4-2.5 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        uimartin.com
+      </a>
+      <a href="https://behance.net/uimartin" target="_blank" class="hero-pill">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M1.5 4h5a2.5 2.5 0 0 1 0 5H1.5V4ZM1.5 9h5.5a2.5 2.5 0 0 1 0 5H1.5V9Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10.5 6h4M10.5 9.5c0-1.66 1.12-3 2.5-3s2.5 1.34 2.5 3v.25h-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        uimartin
+      </a>
+      <a href="mailto:martinmind.dg@gmail.com" class="hero-pill">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="m1.5 5 6.5 4.5L14.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Get in touch
+      </a>
+    </div>
+  </header>
+
+  <!-- ═══ CONTENT ═══ -->
+  <main class="main">
+
+    <!-- SUMMARY -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Summary</span>
+        <div class="section-body">
+          <p class="summary-text">
+            Product Designer with 5+ years of experience delivering end-to-end digital product experiences across web and mobile — combining strong UI craft, product thinking, and data-informed decision-making. Proven track record co-leading design strategy alongside Product Managers and engineering teams, translating user insights and business objectives into measurable outcomes.
+          </p>
+          <p class="summary-text" style="margin-top:10px;">
+            Specialized in scalable design systems, A/B experimentation, UX metrics frameworks, and product discovery. AI-native practitioner — actively leveraging AI tools (Midjourney, ChatGPT, Lovable, Perplexity) to accelerate research synthesis, prototyping, and frontend iteration. English C1+ proficiency and native Spanish speaker.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SKILLS -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Skills</span>
+        <div class="section-body">
+          <div class="skills-groups">
+
+            <div class="skill-row">
+              <span class="skill-row-label">Core UX/UI Skills</span>
+              <div class="chips">
+                <span class="chip c-purple">UI Design</span>
+                <span class="chip c-teal">Design Systems</span>
+                <span class="chip c-blue">Component-Based Design</span>
+                <span class="chip c-slate">Responsive Interfaces</span>
+                <span class="chip c-peach">Microinteractions</span>
+                <span class="chip c-sage">Usability Testing (Maze, Hotjar)</span>
+                <span class="chip c-lavender">Prototyping</span>
+                <span class="chip c-pink">Design Handoff</span>
+              </div>
+            </div>
+
+            <div class="skill-row">
+              <span class="skill-row-label">Design &amp; Prototyping</span>
+              <div class="chips">
+                <span class="chip c-purple">Figma</span>
+                <span class="chip c-teal">FigJam</span>
+                <span class="chip c-blue">Sketch</span>
+                <span class="chip c-peach">Adobe XD</span>
+                <span class="chip c-orange">Photoshop</span>
+                <span class="chip c-sage">Illustrator</span>
+                <span class="chip c-rose">After Effects</span>
+                <span class="chip c-yellow">Lottie</span>
+                <span class="chip c-lavender">Framer</span>
+              </div>
+            </div>
+
+            <div class="skill-row">
+              <span class="skill-row-label">UX &amp; Research</span>
+              <div class="chips">
+                <span class="chip c-blue">Miro</span>
+                <span class="chip c-teal">Maze</span>
+                <span class="chip c-slate">Overflow</span>
+                <span class="chip c-peach">Marvel</span>
+                <span class="chip c-sage">Relume</span>
+              </div>
+            </div>
+
+            <div class="skill-row">
+              <span class="skill-row-label">AI &amp; No-Code</span>
+              <div class="chips">
+                <span class="chip c-purple">Midjourney</span>
+                <span class="chip c-orange">Fliki</span>
+                <span class="chip c-teal">Webflow</span>
+                <span class="chip c-pink">Pikaso</span>
+                <span class="chip c-blue">ChatGPT</span>
+                <span class="chip c-lavender">Perplexity</span>
+                <span class="chip c-sage">Lovable</span>
+                <span class="chip c-yellow">Framer</span>
+              </div>
+            </div>
+
+            <div class="skill-row">
+              <span class="skill-row-label">Collaboration</span>
+              <div class="chips">
+                <span class="chip c-slate">Cross-functional Collaboration</span>
+                <span class="chip c-blue">Agile / Scrum</span>
+                <span class="chip c-teal">Product &amp; Engineering Alignment</span>
+                <span class="chip c-peach">Business Understanding</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- EXPERIENCE -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Experience</span>
+        <div class="section-body">
+          <div class="exp-list">
+
+            <!-- Nutritec -->
+            <div class="exp-item">
+              <div class="exp-top">
+                <span class="exp-company">Nutritec — UX/UI Designer</span>
+                <span class="exp-dates">Jul 2025 – Present</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Led visual direction and execution for brand and commercial campaigns, translating business objectives into high-impact design outcomes in a fast-paced, agency-style environment.</li>
+                <li>Created and maintained a scalable design system with reusable UI components, enabling consistent implementation across multiple products and teams.</li>
+                <li>Partnered with cross-functional teams to deliver high-impact visual solutions.</li>
+              </ul>
+            </div>
+
+            <!-- Globant -->
+            <div class="exp-item">
+              <div class="exp-top">
+                <span class="exp-company">Globant — Visual / UX Product Designer</span>
+                <span class="exp-dates">Mar 2021 – Jul 2025</span>
+              </div>
+              <ul class="exp-bullets">
+                <li><strong>Sportian (2024–2025)</strong> — Created and maintained a scalable Design System with reusable components, tokens, and scalable file governance in Figma. Designed and implemented modular Webflow templates, improving scalability and reducing landing page production time.</li>
+                <li><strong>Autodesk (2023–2024)</strong> — Benchmarking and improving Design System components based on competitor analysis.</li>
+                <li><strong>Prisma (Jan 2023 – Apr 2023)</strong> — Designed interfaces based on user feedback and documented reusable components in Figma.</li>
+                <li><strong>Itaú Bank (Apr 2022 – Nov 2022)</strong> — Supported website redesign and contributed to the new Design System components.</li>
+                <li><strong>Cogni App / Cogni Wallet (2021–2022)</strong> — Improved graphic components (buttons, icons), designed user flows, and prototypes.</li>
+              </ul>
+              <div class="exp-clients">
+                <span class="chip c-slate" style="font-size:11px;padding:3px 10px;">Sportian</span>
+                <span class="chip c-blue" style="font-size:11px;padding:3px 10px;">Autodesk</span>
+                <span class="chip c-teal" style="font-size:11px;padding:3px 10px;">Prisma</span>
+                <span class="chip c-peach" style="font-size:11px;padding:3px 10px;">Itaú Bank</span>
+                <span class="chip c-lavender" style="font-size:11px;padding:3px 10px;">Cogni Wallet</span>
+              </div>
+            </div>
+
+            <!-- Havas -->
+            <div class="exp-item">
+              <div class="exp-top">
+                <span class="exp-company">Havas — UX/UI Designer</span>
+                <span class="exp-dates">Dec 2019 – Dec 2020</span>
+              </div>
+              <ul class="exp-bullets">
+                <li>Led the design of the interface and wireframes for Web Ytuqueplanes in collaboration with the UX team to optimize user flow.</li>
+                <li>Developed prototypes for the website and maintained a consistently updated component library.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- EDUCATION -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Education</span>
+        <div class="section-body">
+          <div class="edu-list">
+
+            <div class="edu-item">
+              <div>
+                <p class="edu-school">ISIL San Ignacio de Loyola Institute</p>
+                <p class="edu-degree">Graphic Design</p>
+              </div>
+              <span class="edu-years">Mar 2010 – Jul 2014</span>
+            </div>
+
+            <div class="edu-item">
+              <div>
+                <p class="edu-school">Crehana</p>
+                <p class="edu-degree">UX &amp; UI Fundamentals · Accessible and Interactive Design</p>
+              </div>
+              <span class="edu-years">Jun 2019 – Jul 2019</span>
+            </div>
+
+            <div class="edu-item">
+              <div>
+                <p class="edu-school">REPENSAR</p>
+                <p class="edu-degree">Product Design Program</p>
+              </div>
+              <span class="edu-years">Jul 2022 – Mar 2023</span>
+            </div>
+
+            <div class="edu-item">
+              <div>
+                <p class="edu-school">LKIND</p>
+                <p class="edu-degree">The AI-Driven Product Designer</p>
+              </div>
+              <span class="edu-years">Jun 2025</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-left">© 2026 Martin La Rosa — Lima, Perú</span>
+      <div class="footer-links">
+        <a href="work.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="mailto:martinmind.dg@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/martinlarosa" target="_blank">LinkedIn</a>
+        <a href="https://uimartin.com" target="_blank">uimartin.com</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

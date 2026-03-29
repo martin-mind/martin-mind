@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Martin La Rosa — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ─── BENT DESIGN TOKENS ─── */
+    :root {
+      --cream:       #f5f3ef;
+      --cream-dark:  #e4e1da;
+      --ink:         #1e1e21;
+      --ink-muted:   rgba(30,30,33,0.55);
+      --white:       #fff;
+      --line:        2px solid #1e1e21;
+      --font:        'Plus Jakarta Sans', sans-serif;
+      --max:         80.625rem; /* 1290px — container */
+      --pad:         4rem;      /* padding-global */
+      --nav-h:       72px;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 1.125rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--ink);          /* page bg = ink, sections sit on cream */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+
+    /* ─── NAV ─── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: var(--cream);
+      border-bottom: var(--line);
+      z-index: 200;
+      padding: 0 var(--pad);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--ink); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.6rem 1.25rem;
+      border: var(--line);
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: var(--ink);
+      color: var(--cream) !important;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      transition: color 0.45s cubic-bezier(0.19,1,0.22,1);
+    }
+
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      left: var(--mx, 50%);
+      top:  var(--my, 50%);
+      width: 260px;
+      height: 260px;
+      background: var(--cream);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.6s cubic-bezier(0.19,1,0.22,1);
+      z-index: 0;
+    }
+    .nav-cta:hover::before { transform: translate(-50%, -50%) scale(1); }
+    .nav-cta:hover { color: var(--ink) !important; }
+
+    /* ─── MAIN WRAPPER ─── */
+    .main { background: var(--cream); padding-top: var(--nav-h); }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 3rem var(--pad) 2.75rem;
+      border-bottom: var(--line);
+      position: relative;
+      background:
+        radial-gradient(ellipse at 8% 0%, rgba(228, 148, 175, 0.65) 0%, rgba(228, 148, 175, 0.25) 30%, transparent 55%),
+        radial-gradient(ellipse at 92% 100%, rgba(165, 210, 115, 0.60) 0%, rgba(165, 210, 115, 0.20) 30%, transparent 52%),
+        radial-gradient(ellipse at 50% 48%, rgba(255,255,255,0.95) 0%, transparent 55%),
+        #f6eeee;
+      overflow: hidden;
+    }
+
+    /* grain / noise texture overlay */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.055;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .hero-loc {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .hero-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22C55E;
+      animation: blink 2.4s ease-in-out infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+    .hero-name {
+      font-size: clamp(48px, 7.5vw, 8.5vw);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 3rem;
+      white-space: nowrap;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .hero-foot {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding-top: 2.5rem;
+      border-top: var(--line);
+    }
+
+    .hero-foot-left { display: flex; flex-direction: column; gap: 0.25rem; }
+
+    .hero-subtitle {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      max-width: 28rem;
+      line-height: 1.65;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 100px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all 0.18s;
+      border: var(--line);
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+      transition: color 0.45s cubic-bezier(0.19,1,0.22,1),
+                  border-color 0.45s;
+    }
+
+    /* ── liquid fill blob ── */
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      left: var(--mx, 50%);
+      top:  var(--my, 50%);
+      width: 320px;
+      height: 320px;
+      background: var(--cream);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.6s cubic-bezier(0.19,1,0.22,1);
+      z-index: 0;
+    }
+    .btn-primary:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .btn-primary:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* ── split text wrapper ── */
+    .btn-split {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: 1.15em;
+      line-height: 1.15em;
+      pointer-events: none;
+    }
+    .bs-top, .bs-bot {
+      display: block;
+      transition: transform 0.45s cubic-bezier(0.19,1,0.22,1);
+    }
+    .bs-bot {
+      position: absolute;
+      inset-inline-start: 0;
+      top: 100%;
+    }
+    .btn-primary:hover .bs-top { transform: translateY(-100%); }
+    .btn-primary:hover .bs-bot  { transform: translateY(-100%); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border-color: transparent;
+    }
+
+    .btn-outline:hover { background: transparent; color: var(--ink-muted); border-color: transparent; }
+
+
+    /* ─── SECTION HEADER ─── */
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 3rem var(--pad) 2.5rem;
+      border-bottom: var(--line);
+      flex-wrap: wrap;
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 3vw);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+
+    /* ─── ACCORDION PROJECTS ─── */
+    .acc-list { border-top: var(--line); }
+
+    .acc-item {
+      border-bottom: var(--line);
+      background: var(--cream);
+      overflow: hidden;
+      transition: background 0.45s cubic-bezier(0.19,1,0.22,1);
+      scroll-margin-top: calc(var(--nav-h) + 0.5rem);
+    }
+    .acc-item.open { background: var(--ink); }
+
+    .acc-head {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem var(--pad);
+      background: none;
+      border: none;
+      font-family: var(--font);
+      cursor: pointer;
+      gap: 2rem;
+      text-align: left;
+      transition: background 0.2s;
+    }
+    .acc-head:hover { background: rgba(30,30,33,0.04); }
+    .acc-item.open .acc-head:hover { background: rgba(245,243,239,0.04); }
+
+    .acc-left {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .acc-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      min-width: 1.5rem;
+      transition: color 0.45s;
+    }
+    .acc-item.open .acc-num { color: rgba(245,243,239,0.35); }
+
+    .acc-info { display: flex; flex-direction: column; gap: 0.15rem; }
+
+    .acc-cat {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      transition: color 0.45s;
+    }
+    .acc-item.open .acc-cat { color: rgba(245,243,239,0.4); }
+
+    .acc-title {
+      font-size: clamp(1.1rem, 2vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--ink);
+      transition: color 0.45s;
+    }
+    .acc-item.open .acc-title { color: var(--cream); }
+
+    .acc-big-n {
+      font-size: clamp(3.5rem, 8vw, 8vw);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      color: var(--ink);
+      transition: color 0.45s, transform 0.35s cubic-bezier(0.19,1,0.22,1);
+      font-variant-numeric: tabular-nums;
+      user-select: none;
+    }
+    .acc-item.open .acc-big-n { color: var(--cream); }
+    .acc-head:hover .acc-big-n { transform: translateX(-6px) scale(1.04); }
+
+
+    /* expand panel */
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.7s cubic-bezier(0.19,1,0.22,1);
+    }
+    .acc-item.open .acc-body { max-height: 9999px; }
+
+    .acc-body-inner {
+      padding: 2rem var(--pad) 3.5rem var(--pad);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* close btn */
+    .acc-close {
+      position: absolute;
+      top: 2rem; right: var(--pad);
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 50%;
+      border: 1.5px solid rgba(245,243,239,0.25);
+      background: none;
+      color: rgba(245,243,239,0.6);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+      font-family: var(--font);
+    }
+    .acc-close:hover { background: rgba(245,243,239,0.12); color: var(--cream); }
+
+    /* ── CASE STUDY LAYOUT ── */
+    .cs-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.5rem; }
+    .cs-tag {
+      padding: 0.28rem 0.75rem;
+      border: 1.5px solid rgba(245,243,239,0.18);
+      border-radius: 100px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: rgba(245,243,239,0.5);
+    }
+
+    /* metrics bar */
+    .cs-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid rgba(245,243,239,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    .cs-metric {
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid rgba(245,243,239,0.1);
+    }
+    .cs-metric:last-child { border-right: none; }
+    .cs-metric-n {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .cs-metric-l {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(245,243,239,0.4);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    /* editorial statement */
+    .cs-statement {
+      font-size: clamp(1.25rem, 2.5vw, 2rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.4;
+      color: rgba(245,243,239,0.75);
+      max-width: 52rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(245,243,239,0.1);
+    }
+    .cs-statement strong {
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    /* 3-col grid: context + role */
+    .cs-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(245,243,239,0.1);
+      margin-bottom: 3rem;
+    }
+
+    .cs-label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245,243,239,0.3);
+      margin-bottom: 0.875rem;
+      display: block;
+    }
+    .cs-h {
+      font-size: clamp(1rem, 1.6vw, 1.35rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .cs-p {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: rgba(245,243,239,0.55);
+    }
+    .cs-p + .cs-p { margin-top: 0.65rem; }
+
+    /* process steps */
+    .cs-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 0.5rem;
+    }
+    .cs-step {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid rgba(245,243,239,0.07);
+    }
+    .cs-step:last-child { border-bottom: none; }
+    .cs-step-n {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: rgba(245,243,239,0.25);
+      letter-spacing: 0.08em;
+      min-width: 1.5rem;
+      padding-top: 0.1em;
+    }
+    .cs-step-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(245,243,239,0.6);
+      line-height: 1.5;
+    }
+    .cs-step-text span {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: rgba(245,243,239,0.35);
+      margin-top: 0.2rem;
+    }
+
+    /* images */
+    .cs-img-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+    .cs-img-row img {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+      border: 1px solid rgba(245,243,239,0.07);
+    }
+
+    .cs-img-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+    .cs-img-full {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(245,243,239,0.08);
+    }
+    .cs-img-full img {
+      width: 100%;
+      display: block;
+    }
+    /* quita fondo negro del PNG usando blend mode */
+    .cs-img-full--blend {
+      background: var(--ink);
+    }
+    .cs-img-full--blend img {
+      mix-blend-mode: screen;
+    }
+    .cs-img-full::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right,  rgba(30,30,33,0.35) 0%, transparent 15%),
+        linear-gradient(to left,   rgba(30,30,33,0.35) 0%, transparent 15%),
+        linear-gradient(to bottom, rgba(30,30,33,0.2)  0%, transparent 18%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cs-img-masked {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(245,243,239,0.07);
+    }
+    .cs-img-masked img {
+      width: 100%;
+      display: block;
+      border-radius: 0;
+      border: none;
+    }
+    .cs-img-masked::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 35%,
+        rgba(30,30,33,0.55) 70%,
+        rgba(30,30,33,0.92) 100%
+      );
+      pointer-events: none;
+    }
+
+    .cs-img-caption {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(245,243,239,0.3);
+      text-align: center;
+      margin-top: 0.6rem;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cs-img-stack > div { display: flex; flex-direction: column; }
+
+    /* outcomes */
+    .cs-outcomes {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border: 1px solid rgba(245,243,239,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .cs-outcome {
+      padding: 1.25rem 1.1rem;
+      border-right: 1px solid rgba(245,243,239,0.1);
+      position: relative;
+    }
+    .cs-outcome:last-child { border-right: none; }
+    .cs-outcome::before {
+      content: '✓';
+      display: block;
+      font-size: 0.75rem;
+      color: rgba(245,243,239,0.25);
+      margin-bottom: 0.5rem;
+    }
+    .cs-outcome-text {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: rgba(245,243,239,0.5);
+      line-height: 1.5;
+    }
+
+    .cs-live-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.1rem;
+      border: 1.5px solid rgba(245,243,239,0.15);
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: rgba(245,243,239,0.7);
+      text-decoration: none;
+      margin-bottom: 2.5rem;
+      transition: border-color 0.2s, color 0.2s;
+      width: fit-content;
+    }
+    .cs-live-link:hover { border-color: rgba(245,243,239,0.45); color: var(--cream); }
+    .cs-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+      flex-shrink: 0;
+    }
+    .cs-live-arrow { font-size: 0.75rem; opacity: 0.5; }
+
+    /* ─── ABOUT SECTION (DARK) ─── */
+    .about-dark {
+      background: var(--ink);
+      color: var(--cream);
+      border-top: var(--line);
+    }
+
+    .about-dark-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 2px solid rgba(245,243,239,0.15);
+    }
+
+    .about-left {
+      padding: 5rem var(--pad);
+      border-right: 2px solid rgba(245,243,239,0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+
+    .about-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(245,243,239,0.4);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-heading {
+      font-size: clamp(1.75rem, 3.5vw, 3.5vw);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      color: rgba(245,243,239,0.6);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .about-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    /* btn-primary & btn-outline invertidos en secciones oscuras */
+    .about-dark .btn-primary,
+    .cta .btn-primary {
+      background: var(--cream);
+      color: var(--ink);
+      border-color: var(--cream);
+    }
+    .about-dark .btn-primary::before,
+    .cta .btn-primary::before { background: var(--ink); }
+    .about-dark .btn-primary:hover,
+    .cta .btn-primary:hover { color: var(--cream); border-color: var(--cream); }
+
+    .about-dark .btn-outline,
+    .cta .btn-outline { color: rgba(245,243,239,0.55); }
+
+    .about-right {
+      padding: 5rem var(--pad);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-content: start;
+    }
+
+    .tool-block {}
+
+    .tool-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(245,243,239,0.35);
+      margin-bottom: 0.875rem;
+    }
+
+    .tool-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+
+    .chip-inv {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 0.3rem 0.875rem;
+      border: 1.5px solid rgba(245,243,239,0.18);
+      border-radius: 100px;
+      color: rgba(245,243,239,0.7);
+    }
+
+    /* ─── SERVICES ─── */
+    .services { border-bottom: var(--line); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .svc {
+      padding: 3rem 2.5rem;
+      border-right: var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .svc:last-child { border-right: none; }
+
+    .svc-n {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .svc-line {
+      width: 2rem;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    .svc-name {
+      font-size: clamp(1rem, 1.5vw, 1.4vw);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    .svc-desc {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── CTA ─── */
+    .cta {
+      padding: 8rem var(--pad);
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+    }
+
+    .cta-inner { max-width: 50rem; margin: 0 auto; }
+
+    .cta-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(245,243,239,0.4);
+      margin-bottom: 2rem;
+    }
+
+    .cta-h {
+      font-size: clamp(2.5rem, 6vw, 6vw);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: var(--cream);
+      margin-bottom: 2rem;
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      color: rgba(245,243,239,0.6);
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .cta-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--cream);
+      border-top: var(--line);
+      padding: 2rem var(--pad);
+    }
+    .foot-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .foot-copy {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+    }
+
+    .foot-links { display: flex; gap: 2rem; }
+
+    .foot-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      transition: color 0.15s;
+    }
+
+    .foot-links a:hover { color: var(--ink); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      :root { --pad: 2rem; }
+      .proj-row, .proj-row.flip { grid-template-columns: 1fr; }
+      .proj-row .pr-img,
+      .proj-row.flip .pr-img { order: 0; border-right: none; border-left: none; border-bottom: var(--line); min-height: 280px; }
+      .proj-row .pr-info,
+      .proj-row.flip .pr-info { order: 1; }
+      .about-dark-inner { grid-template-columns: 1fr; }
+      .about-left { border-right: none; border-bottom: 2px solid rgba(245,243,239,0.15); }
+      .about-right { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .svc:nth-child(2) { border-right: none; }
+      .svc:nth-child(3) { border-top: var(--line); }
+      .svc:nth-child(4) { border-top: var(--line); border-right: none; }
+    }
+
+    @media (max-width: 600px) {
+      :root { --pad: 1.25rem; --nav-h: 60px; }
+      .nav-links { display: none; }
+      .hero-name { font-size: clamp(48px, 13vw, 13vw); }
+      .hero-foot { flex-direction: column; align-items: flex-start; }
+      .about-right { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .svc { border-right: none; border-top: var(--line); }
+      .svc:first-child { border-top: none; }
+      .pr-info { padding: 2rem var(--pad); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg height="43" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Martin La Rosa">
+          <path d="M47.68 4.24023C23.27 4.24023 4 23.6502 4 48.2402C4 72.8302 23.27 92.2402 47.68 92.2402C72.09 92.2402 92 72.8302 92 48.2402C92 23.6502 72.09 4.24023 47.68 4.24023ZM65.58 25.4602H67.18V37.3402H65.58V25.4602ZM52.83 25.4602H54.43V32.1502C54.43 34.7802 55.57 35.9702 57.58 35.9702C59.59 35.9702 60.75 34.7802 60.75 32.1502V25.4602H62.3V32.2202C62.3 35.6702 60.52 37.4802 57.56 37.4802C54.6 37.4802 52.82 35.6602 52.82 32.2202V25.4602H52.83ZM69.53 68.5102H58.01V67.5002C60.13 66.8502 60.25 64.3002 60.25 61.2702V49.7702C60.25 46.4502 58.68 44.8502 56.17 44.8502C54.1 44.8502 51.75 47.5202 51.75 49.8902V61.2802C51.75 64.5402 52.03 66.9702 54.04 67.5102V68.5202H42.52V67.5102C44.64 66.8602 44.76 64.3102 44.76 61.2802V49.7802C44.76 46.4602 43.25 44.8602 40.73 44.8602C38.66 44.8602 36.26 47.5902 36.26 49.7202V61.4002C36.26 64.6602 36.6 66.9102 38.55 67.5102V68.5202H27.09V67.5102C29.21 66.8602 29.27 64.4302 29.27 61.4002V48.4102C29.27 46.3302 28.77 45.2702 26.47 43.9602V42.9502L36.25 40.5802V46.6902C37.76 43.2502 41.17 40.5802 44.69 40.5802C48.6 40.5802 51.01 42.4802 51.68 46.8702C52.85 43.2502 56.66 40.5802 60.18 40.5802C64.54 40.5802 67.22 42.4202 67.22 49.5902V61.2702C67.22 64.5302 67.5 66.9602 69.51 67.5002V68.5102H69.53Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="https://wa.link/5fqk9j" target="_blank" rel="noopener" class="nav-cta">
+          <span class="btn-split">
+            <span class="bs-top">Get in touch</span>
+            <span class="bs-bot">Get in touch</span>
+          </span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-bar">
+          <span class="hero-loc">Lima, Perú</span>
+          <div class="hero-tag">
+            <span class="hero-dot"></span>
+            Available for work
+          </div>
+        </div>
+        <h1 class="hero-name">
+          Martin La Rosa
+        </h1>
+        <div class="hero-foot">
+          <div class="hero-foot-left">
+            <span class="hero-subtitle">Product Designer (UI-Focused)</span>
+            <p class="hero-desc">Crafting end-to-end digital experiences — UI-focused, systems-minded, and no-code fluent.</p>
+          </div>
+          <div class="hero-btns">
+            <a href="#recent-projects" class="btn btn-primary">
+              <span class="btn-split">
+                <span class="bs-top">View Work →</span>
+                <span class="bs-bot">View Work →</span>
+              </span>
+            </a>
+            <a href="cv.html" class="btn btn-outline">View CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT DARK ── -->
+    <div class="about-dark">
+      <div class="about-dark-inner">
+        <div class="about-left">
+          <div>
+            <p class="about-eyebrow">About</p>
+            <h2 class="about-heading">UI-focused.<br>Systems-minded.<br>No-code fluent.</h2>
+            <p class="about-text">5+ years delivering end-to-end digital products across web and mobile. I work closely with PMs and engineers — AI-native practitioner who ships faster using Lovable, Midjourney, and Framer.</p>
+            <div class="about-btns">
+              <a href="about.html" class="btn btn-primary">About me →</a>
+              <a href="cv.html" class="btn btn-outline">View full CV</a>
+            </div>
+          </div>
+        </div>
+        <div class="about-right">
+          <div class="tool-block">
+            <p class="tool-label">Design</p>
+            <div class="tool-chips">
+              <span class="chip-inv">Figma</span>
+              <span class="chip-inv">Framer</span>
+              <span class="chip-inv">After Effects</span>
+              <span class="chip-inv">Lottie</span>
+            </div>
+          </div>
+          <div class="tool-block">
+            <p class="tool-label">No-Code</p>
+            <div class="tool-chips">
+              <span class="chip-inv">Webflow</span>
+              <span class="chip-inv">Framer</span>
+              <span class="chip-inv">Lovable</span>
+            </div>
+          </div>
+          <div class="tool-block">
+            <p class="tool-label">AI</p>
+            <div class="tool-chips">
+              <span class="chip-inv">Midjourney</span>
+              <span class="chip-inv">ChatGPT</span>
+              <span class="chip-inv">Perplexity</span>
+              <span class="chip-inv">Pikaso</span>
+            </div>
+          </div>
+          <div class="tool-block">
+            <p class="tool-label">Research</p>
+            <div class="tool-chips">
+              <span class="chip-inv">Maze</span>
+              <span class="chip-inv">Hotjar</span>
+              <span class="chip-inv">Miro</span>
+              <span class="chip-inv">Relume</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SELECTED WORK ── -->
+    <div id="recent-projects" class="section-head" style="border-bottom:none; scroll-margin-top:var(--nav-h);">
+      <div>
+        <p class="section-label">Selected Work</p>
+        <h2 class="section-title">Recent Projects</h2>
+      </div>
+    </div>
+
+    <div class="acc-list">
+
+      <!-- 01 -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <div class="acc-left">
+            <span class="acc-num">01</span>
+            <div class="acc-info">
+              <span class="acc-cat">Design System · Webflow · 2024–2025</span>
+              <h3 class="acc-title">Sportian Design System</h3>
+            </div>
+          </div>
+<span class="acc-big-n">01</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <button class="acc-close" aria-label="Close">✕</button>
+
+            <!-- Tags -->
+            <div class="cs-tags">
+              <span class="cs-tag">Senior UI Designer</span>
+              <span class="cs-tag">Design Systems</span>
+              <span class="cs-tag">Webflow</span>
+              <span class="cs-tag">Figma</span>
+              <span class="cs-tag">Component Architecture</span>
+              <span class="cs-tag">Cross-functional</span>
+            </div>
+
+            <!-- Key metrics -->
+            <div class="cs-metrics">
+              <div class="cs-metric">
+                <div class="cs-metric-n">40+</div>
+                <div class="cs-metric-l">Reusable<br>components built</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">3</div>
+                <div class="cs-metric-l">Squads aligned<br>to one system</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">~60%</div>
+                <div class="cs-metric-l">Faster page<br>creation</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">1</div>
+                <div class="cs-metric-l">Unified token-based<br>design language</div>
+              </div>
+            </div>
+
+            <!-- Editorial statement -->
+            <p class="cs-statement">Sportian's web presence had grown organically across multiple initiatives — the real problem wasn't visual, it was <strong>the absence of shared rules that slowed every team down.</strong></p>
+
+            <!-- GIF hero -->
+            <div class="cs-img-full" style="margin-bottom:0.5rem;">
+              <img src="img/sportian-laptop.gif" alt="Sportian — nuevo sitio" />
+            </div>
+            <p class="cs-img-caption" style="margin-bottom:2.5rem;">Live site — new Sportian web experience, migrated to Webflow</p>
+
+            <!-- Context + Process -->
+            <div class="cs-grid">
+              <div>
+                <span class="cs-label">Context & Challenge</span>
+                <h4 class="cs-h">Fragmented system, growing visual debt</h4>
+                <p class="cs-p">Sportian is a global sports-tech company (a Globant venture) serving LaLiga, Serie A, and top-tier clubs worldwide. Their web presence had scaled faster than their design rules — inconsistent components, duplicated patterns, and no shared vocabulary between design and dev.</p>
+                <p class="cs-p">My mandate was to audit, systematize, and migrate — without halting ongoing marketing and product releases.</p>
+              </div>
+              <div>
+                <span class="cs-label">My Process</span>
+                <div class="cs-steps">
+                  <div class="cs-step">
+                    <span class="cs-step-n">01</span>
+                    <div class="cs-step-text">Visual & component audit
+                      <span>Mapped all existing UI across 12+ pages, identified 80+ inconsistencies</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">02</span>
+                    <div class="cs-step-text">Token architecture
+                      <span>Defined color, spacing, type & motion tokens in Figma Variables</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">03</span>
+                    <div class="cs-step-text">Component library
+                      <span>Built 40+ reusable components with auto-layout, variants & documentation</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">04</span>
+                    <div class="cs-step-text">Webflow migration
+                      <span>Translated the system into Webflow CMS — zero loss of design fidelity</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">05</span>
+                    <div class="cs-step-text">Governance & handoff
+                      <span>Created naming conventions, usage guidelines, and onboarding docs for 3 teams</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Images -->
+            <div class="cs-img-stack">
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/websportian_DS.jpg" alt="Sportian — Design System en Figma" />
+                </div>
+                <p class="cs-img-caption">Component architecture — type scale, icon sets & reusable UI blocks built in Figma</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/websportian_WF.jpg" alt="Sportian — migración a Webflow" />
+                </div>
+                <p class="cs-img-caption">Webflow migration — design system translated into CMS components with zero fidelity loss</p>
+              </div>
+              <div>
+                <div class="cs-img-full cs-img-full--blend">
+                  <img src="img/sportian-comparison.png" alt="Sportian — Before & After" />
+                </div>
+                <p class="cs-img-caption">Before vs. After — fragmented system → unified design language</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/sportian-new.avif" alt="Sportian — sistema rediseñado" />
+                </div>
+                <p class="cs-img-caption">New system in production — reusable components across all Sportian touchpoints</p>
+              </div>
+            </div>
+
+            <!-- Live link -->
+            <a href="https://www.sportian.com" target="_blank" rel="noopener" class="cs-live-link">
+              <span class="cs-live-dot"></span>
+              sportian.com
+              <span class="cs-live-arrow">↗</span>
+            </a>
+
+            <!-- Outcomes -->
+            <span class="cs-label">Impact & Outcomes</span>
+            <div class="cs-outcomes">
+              <div class="cs-outcome"><p class="cs-outcome-text">Unified visual language across all web touchpoints</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">~60% faster page production with reusable Webflow components</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">80+ visual inconsistencies resolved in a single audit cycle</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">3 cross-functional teams aligned to one design language</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Scalable token architecture ready for future product growth</p></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <div class="acc-left">
+            <span class="acc-num">02</span>
+            <div class="acc-info">
+              <span class="acc-cat">Website Design · Webflow · Visual Concept</span>
+              <h3 class="acc-title">Slinky — Website & Visual Concept</h3>
+            </div>
+          </div>
+<span class="acc-big-n">02</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <button class="acc-close" aria-label="Close">✕</button>
+
+            <div class="cs-tags">
+              <span class="cs-tag">Senior UI Designer</span>
+              <span class="cs-tag">Visual Concept</span>
+              <span class="cs-tag">Webflow</span>
+              <span class="cs-tag">UX</span>
+              <span class="cs-tag">SEO</span>
+              <span class="cs-tag">Creative Studio</span>
+            </div>
+
+            <div class="cs-metrics">
+              <div class="cs-metric">
+                <div class="cs-metric-n">6+</div>
+                <div class="cs-metric-l">Key pages<br>redesigned</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">1</div>
+                <div class="cs-metric-l">Unified visual<br>concept defined</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">100%</div>
+                <div class="cs-metric-l">Responsive &<br>SEO-optimized</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">0→1</div>
+                <div class="cs-metric-l">Design system<br>from scratch</div>
+              </div>
+            </div>
+
+            <p class="cs-statement">The site wasn't broken — it just had <strong>no visual north. Each page was its own island,</strong> disconnected from a shared brand direction.</p>
+
+            <!-- GIF hero -->
+            <div class="cs-img-full" style="margin-bottom:0.5rem;">
+              <img src="img/porta_slinky.gif" alt="Slinky — live site" />
+            </div>
+            <p class="cs-img-caption" style="margin-bottom:2.5rem;">Live site — Slinky creative studio, implemented in Webflow</p>
+
+            <div class="cs-grid">
+              <div>
+                <span class="cs-label">Context & Challenge</span>
+                <h4 class="cs-h">No visual direction, growing incoherence</h4>
+                <p class="cs-p">Slinky is a creative digital studio offering web design, strategy, and campaigns. Their website had grown without a defined visual concept — inconsistent layouts, unclear hierarchy, and a fragmented brand perception that didn't reflect their creative capabilities.</p>
+                <p class="cs-p">The challenge: redesign from a strategic visual concept first, then build a scalable, performant site in Webflow.</p>
+              </div>
+              <div>
+                <span class="cs-label">My Process</span>
+                <div class="cs-steps">
+                  <div class="cs-step">
+                    <span class="cs-step-n">01</span>
+                    <div class="cs-step-text">Visual & UX audit
+                      <span>Mapped all existing pages, identified hierarchy and consistency issues</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">02</span>
+                    <div class="cs-step-text">Visual concept definition
+                      <span>Defined typography, color, motion and layout rules to guide all design decisions</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">03</span>
+                    <div class="cs-step-text">Website redesign
+                      <span>Rebuilt key pages around reusable sections and predictable layout patterns</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">04</span>
+                    <div class="cs-step-text">Webflow implementation
+                      <span>Built with a structured class system — responsive, performant, SEO-ready</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">05</span>
+                    <div class="cs-step-text">QA & continuous iteration
+                      <span>Live QA across devices, performance tuning and ongoing design updates</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cs-img-stack">
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/slynkiwf.png" alt="Slinky — Webflow editor" />
+                </div>
+                <p class="cs-img-caption">Webflow implementation — reusable components & structured class system</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/img_slinky_img_7.jpg" alt="Slinky — mobile responsive" />
+                </div>
+                <p class="cs-img-caption">Fully responsive — mobile-first layout with consistent visual concept</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/img_slinky_2.png" alt="Slinky — full site" />
+                </div>
+                <p class="cs-img-caption">Complete redesign — unified visual language across all pages</p>
+              </div>
+            </div>
+
+            <a href="https://www.slinky.pe" target="_blank" rel="noopener" class="cs-live-link">
+              <span class="cs-live-dot"></span>
+              slinky.pe
+              <span class="cs-live-arrow">↗</span>
+            </a>
+
+            <span class="cs-label">Impact & Outcomes</span>
+            <div class="cs-outcomes">
+              <div class="cs-outcome"><p class="cs-outcome-text">Clear visual concept guiding all design decisions</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Consistent hierarchy and layout across all pages</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Reusable Webflow components for faster updates</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Responsive behavior across all devices</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">SEO & performance improvements post-launch</p></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <div class="acc-left">
+            <span class="acc-num">03</span>
+            <div class="acc-info">
+              <span class="acc-cat">Landing Page · Banking · Conversion Optimization</span>
+              <h3 class="acc-title">BanBif — Credit Card Landing Page</h3>
+            </div>
+          </div>
+<span class="acc-big-n">03</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <button class="acc-close" aria-label="Close">✕</button>
+
+            <div class="cs-tags">
+              <span class="cs-tag">Product Designer</span>
+              <span class="cs-tag">UX</span>
+              <span class="cs-tag">IA</span>
+              <span class="cs-tag">Landing Page</span>
+              <span class="cs-tag">Conversion Optimization</span>
+              <span class="cs-tag">Banking</span>
+            </div>
+
+            <div class="cs-metrics">
+              <div class="cs-metric">
+                <div class="cs-metric-n">+38%</div>
+                <div class="cs-metric-l">Lead form<br>completion</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">−52%</div>
+                <div class="cs-metric-l">Drop-off at<br>key step</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">3→1</div>
+                <div class="cs-metric-l">Flows unified<br>into one path</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">0→1</div>
+                <div class="cs-metric-l">IA strategy<br>from scratch</div>
+              </div>
+            </div>
+
+            <p class="cs-statement">Users weren't converting — not because the product wasn't good, but because <strong>the page never told them clearly what to do next.</strong></p>
+
+            <!-- Hero image -->
+            <div class="cs-img-full" style="margin-bottom:0.5rem;">
+              <img src="img/porta_banbif.png" alt="BanBif — Credit Card Landing Page" />
+            </div>
+            <p class="cs-img-caption" style="margin-bottom:2.5rem;">BanBif credit card landing page — redesigned for clarity and conversion</p>
+
+            <div class="cs-grid">
+              <div>
+                <span class="cs-label">Context & Challenge</span>
+                <h4 class="cs-h">A landing page that didn't convert</h4>
+                <p class="cs-p">BanBif needed to increase credit card applications through their digital channel. The existing landing page had multiple entry points, fragmented messaging, and a form flow that created friction at critical steps — resulting in high drop-off before submission.</p>
+                <p class="cs-p">My role: own the UX strategy end-to-end — from information architecture and user flow definition to wireframes, prototypes, and handoff — within a fast-moving financial services context.</p>
+              </div>
+              <div>
+                <span class="cs-label">My Process</span>
+                <div class="cs-steps">
+                  <div class="cs-step">
+                    <span class="cs-step-n">01</span>
+                    <div class="cs-step-text">Discovery & audit
+                      <span>Reviewed analytics, heatmaps, and drop-off data to identify friction points in the existing flow</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">02</span>
+                    <div class="cs-step-text">IA strategy
+                      <span>Restructured content hierarchy — one clear value prop, one primary CTA, progressive disclosure for details</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">03</span>
+                    <div class="cs-step-text">Wireframes & flow
+                      <span>Designed low-to-mid fidelity wireframes covering all states — empty, error, loading, success</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">04</span>
+                    <div class="cs-step-text">Prototype & validation
+                      <span>Clickable prototype tested with real users; iterated on form step order and label clarity</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">05</span>
+                    <div class="cs-step-text">Handoff & QA
+                      <span>Annotated specs delivered in Figma; worked directly with dev team during implementation</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cs-img-stack">
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/Frame 28051.jpg" alt="BanBif — IA structure and content hierarchy" />
+                </div>
+                <p class="cs-img-caption">IA strategy — restructured content hierarchy with a single conversion path</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/Preview 6.jpg" alt="BanBif — wireframe flow" />
+                </div>
+                <p class="cs-img-caption">Wireframe flow — progressive disclosure reducing cognitive load at each step</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/6.jpg" alt="BanBif — form states design" />
+                </div>
+                <p class="cs-img-caption">Form states — empty, error, and success variations for consistent feedback</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/8.jpg" alt="BanBif — mobile responsive layout" />
+                </div>
+                <p class="cs-img-caption">Mobile layout — optimized for the primary access channel (80%+ mobile traffic)</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/9.jpg" alt="BanBif — final design" />
+                </div>
+                <p class="cs-img-caption">Final design — unified landing page with clear hierarchy and single CTA path</p>
+              </div>
+            </div>
+
+            <a href="https://www.figma.com/design/J1azSeb7IctuQST0nbLi3J/Banbif?node-id=725-2&t=941wV1NEJtx67izk-1" target="_blank" rel="noopener" class="cs-live-link">
+              <span class="cs-live-dot" style="background:#a259ff;"></span>
+              View in Figma
+              <span class="cs-live-arrow">↗</span>
+            </a>
+
+            <span class="cs-label">Impact & Outcomes</span>
+            <div class="cs-outcomes">
+              <div class="cs-outcome"><p class="cs-outcome-text">+38% lead form completion rate post-launch</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Drop-off reduced at the critical form step</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">3 fragmented flows consolidated into 1 clear path</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Full mobile-first responsive implementation</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Reusable Figma components handed off to dev</p></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="acc-item">
+        <button class="acc-head">
+          <div class="acc-left">
+            <span class="acc-num">04</span>
+            <div class="acc-info">
+              <span class="acc-cat">UI Design · Banking · Web & Mobile</span>
+              <h3 class="acc-title">BBVA — UI Design & Product Interfaces</h3>
+            </div>
+          </div>
+<span class="acc-big-n">04</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">
+            <button class="acc-close" aria-label="Close">✕</button>
+
+            <div class="cs-tags">
+              <span class="cs-tag">UI Designer</span>
+              <span class="cs-tag">Visual Design</span>
+              <span class="cs-tag">Design System</span>
+              <span class="cs-tag">Web</span>
+              <span class="cs-tag">Mobile</span>
+              <span class="cs-tag">Figma</span>
+            </div>
+
+            <div class="cs-metrics">
+              <div class="cs-metric">
+                <div class="cs-metric-n">4+</div>
+                <div class="cs-metric-l">Products &<br>platforms</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">Web+App</div>
+                <div class="cs-metric-l">Cross-platform<br>coverage</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">1 DS</div>
+                <div class="cs-metric-l">Design system<br>followed</div>
+              </div>
+              <div class="cs-metric">
+                <div class="cs-metric-n">100%</div>
+                <div class="cs-metric-l">Delivered &<br>shipped</div>
+              </div>
+            </div>
+
+            <p class="cs-statement">Working inside a regulated, large-scale system means <strong>every pixel has to earn its place — clarity, consistency, and accessibility are non-negotiable.</strong></p>
+
+            <!-- Hero image -->
+            <div class="cs-img-full" style="margin-bottom:0.5rem;">
+              <img src="img/web-portfolio-mockup_11.jpg" alt="BBVA — product interfaces overview" />
+            </div>
+            <p class="cs-img-caption" style="margin-bottom:2.5rem;">BBVA — digital financial products for web and mobile platforms</p>
+
+            <div class="cs-grid">
+              <div>
+                <span class="cs-label">Context & Role</span>
+                <h4 class="cs-h">UI design inside a large-scale financial system</h4>
+                <p class="cs-p">At BBVA, I worked as a UI and visual designer within a multidisciplinary team, designing interfaces for digital financial products — from landing pages and onboarding flows to core banking features for web and mobile.</p>
+                <p class="cs-p">The environment demanded strict adherence to BBVA's global design system while solving real UX problems: improving clarity at critical moments, reducing errors in transactional flows, and maintaining visual consistency across devices.</p>
+              </div>
+              <div>
+                <span class="cs-label">What I did</span>
+                <div class="cs-steps">
+                  <div class="cs-step">
+                    <span class="cs-step-n">01</span>
+                    <div class="cs-step-text">Screen & component design
+                      <span>Designed UI for key flows in web and mobile products following BBVA's design system guidelines</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">02</span>
+                    <div class="cs-step-text">Visual adaptation of new features
+                      <span>Ensured hierarchy, readability, and accessibility across devices and viewports</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">03</span>
+                    <div class="cs-step-text">Cross-team collaboration
+                      <span>Worked with product managers and engineers to validate and refine UI proposals iteratively</span>
+                    </div>
+                  </div>
+                  <div class="cs-step">
+                    <span class="cs-step-n">04</span>
+                    <div class="cs-step-text">Graphic assets & documentation
+                      <span>Produced visual assets and annotated Figma specs for accurate, efficient dev handoff</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cs-img-stack">
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/contact.jpg" alt="BBVA — multi-product landing pages" />
+                </div>
+                <p class="cs-img-caption">Multi-product landing pages — Link de pago, POS, and payment hub designed with consistent hierarchy</p>
+              </div>
+              <div>
+                <div class="cs-img-full">
+                  <img src="img/img-1.jpg" alt="BBVA — Figma design specs and flow documentation" />
+                </div>
+                <p class="cs-img-caption">Figma documentation — annotated flow specs delivered to development for precise implementation</p>
+              </div>
+            </div>
+
+            <span class="cs-label">Impact & Outcomes</span>
+            <div class="cs-outcomes">
+              <div class="cs-outcome"><p class="cs-outcome-text">4+ digital products designed and shipped</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Consistent UI across web and mobile platforms</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Design system applied at scale across all deliverables</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Full annotated Figma specs for dev handoff</p></div>
+              <div class="cs-outcome"><p class="cs-outcome-text">Transactional flows improved for clarity and trust</p></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SERVICES ── -->
+    <div class="section-head">
+      <div>
+        <p class="section-label">Expertise</p>
+        <h2 class="section-title">What I do</h2>
+      </div>
+    </div>
+
+    <div class="services">
+      <div class="services-grid">
+        <div class="svc">
+          <span class="svc-n">01</span>
+          <div class="svc-line"></div>
+          <h3 class="svc-name">Product Design</h3>
+          <p class="svc-desc">End-to-end: discovery, wireframes, prototypes, validation, and delivery — always close to PMs and engineers.</p>
+        </div>
+        <div class="svc">
+          <span class="svc-n">02</span>
+          <div class="svc-line"></div>
+          <h3 class="svc-name">Design Systems</h3>
+          <p class="svc-desc">Scalable component libraries with tokens, file governance, and documentation for multi-squad teams.</p>
+        </div>
+        <div class="svc">
+          <span class="svc-n">03</span>
+          <div class="svc-line"></div>
+          <h3 class="svc-name">No-Code Build</h3>
+          <p class="svc-desc">Production-ready sites in Webflow and Framer — campaigns, landing pages, and MVPs without bottlenecks.</p>
+        </div>
+        <div class="svc">
+          <span class="svc-n">04</span>
+          <div class="svc-line"></div>
+          <h3 class="svc-name">AI-Augmented</h3>
+          <p class="svc-desc">Faster visual assets, research synthesis, and prototyping using Midjourney, Lovable, and ChatGPT.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CTA ── -->
+    <section class="cta">
+      <div class="cta-inner">
+        <p class="cta-eyebrow">Let's talk</p>
+        <h2 class="cta-h">Ready to build<br>something great?</h2>
+        <p class="cta-sub">Open to full-time roles, freelance projects, and consulting. Remote-ready from Lima, Perú.</p>
+        <div class="cta-row">
+          <a href="https://wa.link/5fqk9j" target="_blank" rel="noopener" class="btn btn-primary">Get in touch →</a>
+          <a href="cv.html" class="btn btn-outline">View my CV</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.main -->
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="foot-inner">
+      <span class="foot-copy">© 2026 Martin La Rosa — Lima, Perú</span>
+      <div class="foot-links">
+        <a href="about.html">About</a>
+        <a href="cv.html">CV</a>
+        <a href="mailto:martinmind.dg@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/martinlarosa" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+
+<script>
+  /* ── Accordion ── */
+  document.querySelectorAll('.acc-head').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.acc-item');
+      const list = item.closest('.acc-list');
+      const isOpen = item.classList.contains('open');
+      list.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) {
+        item.classList.add('open');
+        // scroll to top of item after opening starts
+        setTimeout(() => {
+          item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+    });
+  });
+
+  document.querySelectorAll('.acc-close').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const item = btn.closest('.acc-item');
+      item.classList.remove('open');
+      // scroll to the row header after closing
+      setTimeout(() => {
+        item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    });
+  });
+
+  /* ── Liquid-fill: track cursor inside .btn-primary & .nav-cta ── */
+  document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      btn.style.setProperty('--my', (e.clientY - r.top)  + 'px');
+    });
+  });
+</script>
+</body>
+</html>
