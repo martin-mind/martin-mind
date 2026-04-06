@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Martin La Rosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_shared.css" />
+  <style>
+    /* PAGE HERO */
+    .page-hero {
+      padding: 72px 40px 64px;
+      background: linear-gradient(145deg, #FDEEED 0%, #F5EEFF 50%, #EEF5FF 100%);
+    }
+
+    .page-hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: end;
+    }
+
+    .page-title {
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+    }
+
+    .page-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gray-6);
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-bottom: 6px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      background: rgba(255,255,255,0.7);
+      font-size: 12.5px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .dot-green { width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0; }
+
+    /* BIO SECTION */
+    .bio-section {
+      padding: 72px 40px;
+      border-bottom: 1px solid var(--gray-2);
+    }
+
+    .bio-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .bio-left {}
+
+    .bio-label { margin-bottom: 20px; }
+
+    .bio-text {
+      font-size: 15px;
+      color: var(--gray-6);
+      line-height: 1.8;
+    }
+
+    .bio-text p + p { margin-top: 16px; }
+
+    .bio-actions { display: flex; gap: 10px; margin-top: 32px; flex-wrap: wrap; }
+
+    .bio-right { display: flex; flex-direction: column; gap: 32px; }
+
+    .info-block {}
+
+    .info-block-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      margin-bottom: 10px;
+    }
+
+    .info-block-value {
+      font-size: 14px;
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .info-block-value a { color: var(--black); }
+    .info-block-value a:hover { text-decoration: underline; }
+
+    /* TIMELINE */
+    .timeline-section {
+      padding: 72px 40px;
+      border-bottom: 1px solid var(--gray-2);
+    }
+
+    .timeline-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .timeline-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 48px;
+    }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-top: 1px solid var(--gray-2);
+    }
+
+    .tl-item:last-child { border-bottom: 1px solid var(--gray-2); }
+
+    .tl-left {}
+
+    .tl-period {
+      font-size: 12px;
+      color: var(--gray-4);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .tl-right {}
+
+    .tl-company {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 3px;
+    }
+
+    .tl-role {
+      font-size: 13px;
+      color: var(--gray-6);
+      margin-bottom: 12px;
+    }
+
+    .tl-desc {
+      font-size: 13.5px;
+      color: var(--gray-6);
+      line-height: 1.7;
+    }
+
+    .tl-clients {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    /* SKILLS SECTION */
+    .skills-section {
+      padding: 72px 40px;
+      border-bottom: 1px solid var(--gray-2);
+      background: var(--gray-1);
+    }
+
+    .skills-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .skills-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 48px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .skill-group {}
+
+    .skill-group-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      margin-bottom: 14px;
+    }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* EDUCATION */
+    .edu-section {
+      padding: 72px 40px;
+      border-bottom: 1px solid var(--gray-2);
+    }
+
+    .edu-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .edu-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 48px;
+    }
+
+    .edu-list { display: flex; flex-direction: column; gap: 0; }
+
+    .edu-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+      padding: 24px 0;
+      border-top: 1px solid var(--gray-2);
+    }
+
+    .edu-item:last-child { border-bottom: 1px solid var(--gray-2); }
+
+    .edu-school {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .edu-degree {
+      font-size: 13px;
+      color: var(--gray-6);
+      margin-top: 3px;
+    }
+
+    .edu-year {
+      font-size: 12px;
+      color: var(--gray-4);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    /* CTA */
+    .cta-strip {
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .cta-strip-inner { max-width: 560px; margin: 0 auto; }
+
+    .cta-heading {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .cta-sub {
+      font-size: 14px;
+      color: var(--gray-6);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .cta-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 768px) {
+      .page-hero { padding: 48px 20px 48px; }
+      .page-hero-inner { grid-template-columns: 1fr; }
+      .hero-pills { flex-direction: row; flex-wrap: wrap; }
+      .bio-inner { grid-template-columns: 1fr; gap: 40px; }
+      .tl-item { grid-template-columns: 1fr; gap: 8px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .bio-section, .timeline-section, .skills-section, .edu-section, .cta-strip { padding: 48px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Martin La Rosa</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <h1 class="page-title">About<br><em>Martin</em></h1>
+      <div class="hero-pills">
+        <span class="hero-pill"><span class="dot-green"></span> Available for work</span>
+        <span class="hero-pill">📍 Lima, Perú</span>
+        <span class="hero-pill">🌐 English C1+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIO -->
+  <section class="bio-section">
+    <div class="bio-inner">
+      <div class="bio-left">
+        <p class="label bio-label">Who I am</p>
+        <div class="bio-text">
+          <p>Product Designer with 5+ years of experience delivering end-to-end digital product experiences across web and mobile — combining strong UI craft, product thinking, and data-informed decision-making.</p>
+          <p>I've co-led design strategy alongside Product Managers and engineering teams at Globant, Nutritec, and Havas — translating user insights and business objectives into measurable outcomes.</p>
+          <p>Specialized in scalable design systems, A/B experimentation, UX metrics frameworks, and product discovery. I'm an AI-native practitioner — actively using Midjourney, ChatGPT, Lovable, and Perplexity to accelerate research synthesis, prototyping, and frontend iteration.</p>
+          <p>My no-code expertise in Webflow and Framer lets me take designs from concept to live product without engineering bottlenecks.</p>
+        </div>
+        <div class="bio-actions">
+          <a href="cv.html" class="btn btn-dark">View full CV →</a>
+          <a href="contact.html" class="btn btn-outline">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="bio-right">
+        <div class="info-block">
+          <p class="info-block-label">Location</p>
+          <p class="info-block-value">Lima, Perú · Remote-ready</p>
+        </div>
+        <div class="info-block">
+          <p class="info-block-label">Experience</p>
+          <p class="info-block-value">5+ years</p>
+        </div>
+        <div class="info-block">
+          <p class="info-block-label">Focus</p>
+          <p class="info-block-value">Product Design · Design Systems<br>No-Code · AI-augmented workflow</p>
+        </div>
+        <div class="info-block">
+          <p class="info-block-label">Languages</p>
+          <p class="info-block-value">Spanish (native) · English (C1+)</p>
+        </div>
+        <div class="info-block">
+          <p class="info-block-label">Email</p>
+          <p class="info-block-value"><a href="mailto:martinmind.dg@gmail.com">martinmind.dg@gmail.com</a></p>
+        </div>
+        <div class="info-block">
+          <p class="info-block-label">LinkedIn</p>
+          <p class="info-block-value"><a href="https://linkedin.com/in/martinlarosa" target="_blank">/martinlarosa</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="timeline-inner">
+      <h2 class="timeline-title">Experience</h2>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <p class="tl-period">Jul 2025<br>Present</p>
+          </div>
+          <div class="tl-right">
+            <p class="tl-company">Nutritec</p>
+            <p class="tl-role">UX/UI Designer</p>
+            <p class="tl-desc">Leading visual direction for brand and commercial campaigns. Built and maintained a scalable design system enabling consistent delivery across products and teams.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <p class="tl-period">Mar 2021<br>Jul 2025</p>
+          </div>
+          <div class="tl-right">
+            <p class="tl-company">Globant</p>
+            <p class="tl-role">Visual / UX Product Designer</p>
+            <p class="tl-desc">4 years across 5 clients — from sports platforms to fintech apps to enterprise software. Built design systems, shipped no-code templates, and worked embedded with product and engineering teams.</p>
+            <div class="tl-clients">
+              <span class="chip c-purple">Sportian</span>
+              <span class="chip c-blue">Autodesk</span>
+              <span class="chip c-teal">Prisma</span>
+              <span class="chip c-peach">Itaú Bank</span>
+              <span class="chip c-lavender">Cogni Wallet</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <p class="tl-period">Dec 2019<br>Dec 2020</p>
+          </div>
+          <div class="tl-right">
+            <p class="tl-company">Havas</p>
+            <p class="tl-role">UX/UI Designer</p>
+            <p class="tl-desc">Led interface design and wireframes for a travel booking platform. Built prototypes and maintained a component library across the full project lifecycle.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section">
+    <div class="skills-inner">
+      <h2 class="skills-title">Skills & Tools</h2>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <p class="skill-group-label">Core UX/UI</p>
+          <div class="chips">
+            <span class="chip c-purple">UI Design</span>
+            <span class="chip c-teal">Design Systems</span>
+            <span class="chip c-blue">Component Design</span>
+            <span class="chip c-slate">Responsive UI</span>
+            <span class="chip c-peach">Microinteractions</span>
+            <span class="chip c-lavender">Prototyping</span>
+            <span class="chip c-pink">Design Handoff</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Design Tools</p>
+          <div class="chips">
+            <span class="chip c-purple">Figma</span>
+            <span class="chip c-lavender">Framer</span>
+            <span class="chip c-teal">FigJam</span>
+            <span class="chip c-blue">Sketch</span>
+            <span class="chip c-peach">Adobe XD</span>
+            <span class="chip c-orange">Photoshop</span>
+            <span class="chip c-sage">Illustrator</span>
+            <span class="chip c-yellow">Lottie</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">No-Code / AI</p>
+          <div class="chips">
+            <span class="chip c-teal">Webflow</span>
+            <span class="chip c-lavender">Framer</span>
+            <span class="chip c-sage">Lovable</span>
+            <span class="chip c-purple">Midjourney</span>
+            <span class="chip c-blue">ChatGPT</span>
+            <span class="chip c-peach">Perplexity</span>
+            <span class="chip c-pink">Pikaso</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Research</p>
+          <div class="chips">
+            <span class="chip c-blue">Maze</span>
+            <span class="chip c-teal">Hotjar</span>
+            <span class="chip c-slate">Miro</span>
+            <span class="chip c-peach">Overflow</span>
+            <span class="chip c-sage">Relume</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Process</p>
+          <div class="chips">
+            <span class="chip c-slate">Agile / Scrum</span>
+            <span class="chip c-blue">Product Discovery</span>
+            <span class="chip c-teal">A/B Testing</span>
+            <span class="chip c-peach">UX Metrics</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <p class="skill-group-label">Collaboration</p>
+          <div class="chips">
+            <span class="chip c-purple">Cross-functional</span>
+            <span class="chip c-teal">PM Alignment</span>
+            <span class="chip c-blue">Eng Handoff</span>
+            <span class="chip c-slate">Stakeholders</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="edu-section">
+    <div class="edu-inner">
+      <h2 class="edu-title">Education</h2>
+      <div class="edu-list">
+
+        <div class="edu-item">
+          <div>
+            <p class="edu-school">LKIND</p>
+            <p class="edu-degree">The AI-Driven Product Designer</p>
+          </div>
+          <span class="edu-year">Jun 2025</span>
+        </div>
+
+        <div class="edu-item">
+          <div>
+            <p class="edu-school">REPENSAR</p>
+            <p class="edu-degree">Product Design Program</p>
+          </div>
+          <span class="edu-year">2022 – 2023</span>
+        </div>
+
+        <div class="edu-item">
+          <div>
+            <p class="edu-school">Crehana</p>
+            <p class="edu-degree">UX & UI Fundamentals · Accessible & Interactive Design</p>
+          </div>
+          <span class="edu-year">2019</span>
+        </div>
+
+        <div class="edu-item">
+          <div>
+            <p class="edu-school">ISIL — San Ignacio de Loyola Institute</p>
+            <p class="edu-degree">Graphic Design</p>
+          </div>
+          <span class="edu-year">2010 – 2014</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <div class="cta-strip-inner">
+      <h2 class="cta-heading">Let's work<br>together.</h2>
+      <p class="cta-sub">Open to full-time roles, freelance projects, and consulting. Remote-ready from Lima, Perú.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-dark">Get in touch →</a>
+        <a href="cv.html" class="btn btn-outline">View full CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-left">© 2026 Martin La Rosa — Lima, Perú</span>
+      <div class="footer-links">
+        <a href="work.html">Work</a>
+        <a href="cv.html">CV</a>
+        <a href="mailto:martinmind.dg@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/martinlarosa" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
