@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Martin La Rosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="_shared.css" />
+  <style>
+    .contact-page {
+      min-height: calc(100vh - 60px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT */
+    .contact-left {
+      padding: 72px 56px 72px 40px;
+      border-right: 1px solid var(--gray-2);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-left-top {}
+
+    .contact-title {
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+
+    .contact-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gray-6);
+    }
+
+    .contact-desc {
+      font-size: 15px;
+      color: var(--gray-6);
+      line-height: 1.75;
+      max-width: 380px;
+      margin-bottom: 48px;
+    }
+
+    .contact-channels { display: flex; flex-direction: column; gap: 24px; }
+
+    .channel-item {}
+
+    .channel-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gray-4);
+      margin-bottom: 4px;
+    }
+
+    .channel-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--black);
+      transition: opacity 0.15s;
+    }
+
+    .channel-value:hover { opacity: 0.6; }
+
+    .contact-left-bottom {}
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: #F0FFF4;
+      border: 1px solid #BBF7D0;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #15803D;
+    }
+
+    .dot-green { width:7px;height:7px;border-radius:50%;background:#22C55E;flex-shrink:0;animation:pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.4} }
+
+    /* RIGHT */
+    .contact-right {
+      padding: 72px 40px 72px 56px;
+      background: var(--gray-1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .form { display: flex; flex-direction: column; gap: 20px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gray-6);
+      text-transform: uppercase;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--gray-2);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--black);
+      background: var(--white);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--black);
+    }
+
+    .form-textarea { resize: vertical; min-height: 120px; }
+
+    .form-select { appearance: none; cursor: pointer; }
+
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      width: 100%;
+    }
+
+    .form-submit:hover { opacity: 0.8; }
+
+    .form-note {
+      font-size: 11.5px;
+      color: var(--gray-4);
+      text-align: center;
+      margin-top: -8px;
+    }
+
+    @media (max-width: 768px) {
+      .contact-page { grid-template-columns: 1fr; }
+      .contact-left { padding: 48px 20px 40px; border-right: none; border-bottom: 1px solid var(--gray-2); }
+      .contact-right { padding: 40px 20px 60px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Martin La Rosa</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="contact.html" class="nav-cta active" style="background:#333;">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="contact-page">
+
+    <!-- LEFT -->
+    <div class="contact-left">
+      <div class="contact-left-top">
+        <p class="label" style="margin-bottom:20px;">Contact</p>
+        <h1 class="contact-title">Let's<br><em>talk.</em></h1>
+        <p class="contact-desc">
+          Open to full-time roles, freelance projects, and consulting. I typically reply within 24 hours.
+        </p>
+        <div class="contact-channels">
+          <div class="channel-item">
+            <p class="channel-label">Email</p>
+            <a href="mailto:martinmind.dg@gmail.com" class="channel-value">martinmind.dg@gmail.com</a>
+          </div>
+          <div class="channel-item">
+            <p class="channel-label">Phone</p>
+            <a href="tel:+51949780440" class="channel-value">+51 949 780 440</a>
+          </div>
+          <div class="channel-item">
+            <p class="channel-label">LinkedIn</p>
+            <a href="https://linkedin.com/in/martinlarosa" target="_blank" class="channel-value">/martinlarosa</a>
+          </div>
+          <div class="channel-item">
+            <p class="channel-label">Website</p>
+            <a href="https://uimartin.com" target="_blank" class="channel-value">uimartin.com</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-left-bottom" style="margin-top:48px;">
+        <span class="availability-badge">
+          <span class="dot-green"></span>
+          Available for new projects
+        </span>
+      </div>
+    </div>
+
+    <!-- RIGHT — FORM -->
+    <div class="contact-right">
+      <h2 class="form-title">Send a message</h2>
+      <form class="form" action="mailto:martinmind.dg@gmail.com" method="get" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="subject">Subject</label>
+          <select class="form-select" id="subject" name="subject">
+            <option value="">Select a topic...</option>
+            <option>Full-time role</option>
+            <option>Freelance project</option>
+            <option>Design systems consulting</option>
+            <option>No-code build</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-textarea" id="message" name="body" placeholder="Tell me about your project or opportunity..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message →</button>
+        <p class="form-note">Or email me directly at martinmind.dg@gmail.com</p>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span class="footer-left">© 2026 Martin La Rosa — Lima, Perú</span>
+      <div class="footer-links">
+        <a href="work.html">Work</a>
+        <a href="about.html">About</a>
+        <a href="cv.html">CV</a>
+        <a href="https://linkedin.com/in/martinlarosa" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
