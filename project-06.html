@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autodesk — UX Strategy & Component Definition · Martin La Rosa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root { --cream:#f5f3ef; --cream-dark:#e4e1da; --ink:#1e1e21; --ink-muted:rgba(30,30,33,0.55); --white:#fff; --line:2px solid #1e1e21; --font:'Plus Jakarta Sans', sans-serif; --max:80.625rem; --pad:4rem; --nav-h:90px; }
+    body { font-family: var(--font); font-size: 1.125rem; font-weight: 500; line-height: 1.6; color: var(--ink); background: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: transparent; border-bottom: 1px solid transparent; z-index: 200; padding: 0 var(--pad); display: flex; align-items: center; transition: background 0.4s ease, border-color 0.4s ease; }
+    .nav.nav-scrolled { background: rgba(245,243,239,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; }
+    .nav-inner { width: 100%; max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: 1rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.9375rem; font-weight: 500; color: var(--ink-muted); transition: color 0.15s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: inline-flex; align-items: center; padding: 0.6rem 1.25rem; border: var(--line); border-radius: 100px; font-size: 0.875rem; font-weight: 600; background: var(--ink); color: var(--cream) !important; overflow: hidden; position: relative; isolation: isolate; transition: color 0.45s cubic-bezier(0.19,1,0.22,1); }
+    .nav-cta::before { content: ''; position: absolute; left: var(--mx,50%); top: var(--my,50%); width: 260px; height: 260px; background: var(--cream); border-radius: 50%; transform: translate(-50%,-50%) scale(0); transition: transform 0.6s cubic-bezier(0.19,1,0.22,1); z-index: 0; }
+    .nav-cta:hover::before { transform: translate(-50%,-50%) scale(1); }
+    .nav-cta:hover { color: var(--ink) !important; }
+    .main { background: var(--cream); }
+    .lang-sw { position: relative; width: 64px; height: 30px; border-radius: 100px; border: none; cursor: pointer; flex-shrink: 0; padding: 0 9px; display: flex; align-items: center; justify-content: space-between; background: rgba(30,30,33,0.07); box-shadow: inset 2px 2px 5px rgba(0,0,0,0.13), inset -1px -1px 3px rgba(255,255,255,0.55); transition: box-shadow 0.2s; }
+    .lang-sw-knob { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 2px 3px 8px rgba(0,0,0,0.18), -1px -1px 3px rgba(255,255,255,0.9); transition: transform 0.38s cubic-bezier(0.34,1.4,0.64,1); pointer-events: none; }
+    html[lang="es"] .lang-sw-knob { transform: translateX(34px); }
+    .lang-sw-label { font-family: var(--font); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.07em; color: rgba(30,30,33,0.35); z-index: 1; user-select: none; transition: color 0.2s; }
+    html[lang="en"] .lang-sw [data-lang="en"], html[lang="es"] .lang-sw [data-lang="es"] { color: var(--ink); }
+    footer { background: var(--cream); border-top: var(--line); padding: 2rem var(--pad); }
+    .foot-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .foot-copy { font-size: 0.875rem; font-weight: 500; color: var(--ink-muted); }
+    .foot-links { display: flex; gap: 2rem; }
+    .foot-links a { font-size: 0.875rem; font-weight: 500; color: var(--ink-muted); transition: color 0.15s; }
+    .foot-links a:hover { color: var(--ink); }
+    .proj-back-wrap { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 2rem) var(--pad) 0; }
+    .proj-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+    .proj-back:hover { opacity: 1; }
+    .proj-page-hd { max-width: var(--max); margin: 0 auto; padding: 2rem var(--pad) 3rem; border-bottom: var(--line); }
+    .proj-page-hd-inner { display: flex; align-items: flex-start; gap: 2rem; }
+    .proj-page-num { font-size: clamp(4rem,8vw,7rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: rgba(30,30,33,0.08); flex-shrink: 0; }
+    .proj-page-meta { padding-top: 0.5rem; }
+    .proj-page-cat { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.45; display: block; margin-bottom: 0.5rem; }
+    .proj-page-title { font-size: clamp(1.8rem,4vw,3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+    .cs-page-body { max-width: var(--max); margin: 0 auto; padding: 4rem var(--pad); background: var(--ink); color: var(--cream); }
+    .cs-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.5rem; }
+    .cs-tag { padding: 0.28rem 0.75rem; border: 1.5px solid rgba(245,243,239,0.18); border-radius: 100px; font-size: 0.8125rem; font-weight: 500; color: rgba(245,243,239,0.5); }
+    .cs-metrics { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid rgba(245,243,239,0.1); border-radius: 10px; overflow: hidden; margin-bottom: 3rem; }
+    .cs-metric { padding: 1.5rem 1.75rem; border-right: 1px solid rgba(245,243,239,0.1); }
+    .cs-metric:last-child { border-right: none; }
+    .cs-metric-n { font-size: clamp(1.75rem,3vw,2.5rem); font-weight: 800; letter-spacing: -0.04em; color: var(--cream); line-height: 1; margin-bottom: 0.35rem; }
+    .cs-metric-l { font-size: 0.75rem; font-weight: 500; color: rgba(245,243,239,0.4); letter-spacing: 0.04em; line-height: 1.4; }
+    .cs-statement { font-size: clamp(1.25rem,2.5vw,2rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1.4; color: rgba(245,243,239,0.75); max-width: 52rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(245,243,239,0.1); }
+    .cs-statement strong { font-weight: 700; color: var(--cream); }
+    .cs-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(245,243,239,0.1); margin-bottom: 3rem; }
+    .cs-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,243,239,0.3); margin-bottom: 0.875rem; display: block; }
+    .cs-h { font-size: clamp(1rem,1.6vw,1.35rem); font-weight: 700; letter-spacing: -0.025em; color: var(--cream); margin-bottom: 0.75rem; line-height: 1.25; }
+    .cs-p { font-size: 0.9375rem; font-weight: 400; line-height: 1.75; color: rgba(245,243,239,0.55); }
+    .cs-p + .cs-p { margin-top: 0.65rem; }
+    .cs-steps { display: flex; flex-direction: column; gap: 0; margin-top: 0.5rem; }
+    .cs-step { display: flex; gap: 1rem; align-items: flex-start; padding: 0.875rem 0; border-bottom: 1px solid rgba(245,243,239,0.07); }
+    .cs-step:last-child { border-bottom: none; }
+    .cs-step-n { font-size: 0.6875rem; font-weight: 700; color: rgba(245,243,239,0.25); letter-spacing: 0.08em; min-width: 1.5rem; padding-top: 0.1em; }
+    .cs-step-text { font-size: 0.875rem; font-weight: 500; color: rgba(245,243,239,0.6); line-height: 1.5; }
+    .cs-step-text span { display: block; font-size: 0.8125rem; font-weight: 400; color: rgba(245,243,239,0.35); margin-top: 0.2rem; }
+    .cs-img-stack { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 3rem; }
+    .cs-img-full { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid rgba(245,243,239,0.08); }
+    .cs-img-full img { width: 100%; display: block; }
+    .cs-img-full::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to right,rgba(30,30,33,0.35) 0%,transparent 15%),linear-gradient(to left,rgba(30,30,33,0.35) 0%,transparent 15%),linear-gradient(to bottom,rgba(30,30,33,0.2) 0%,transparent 18%); pointer-events: none; z-index: 1; }
+    .cs-img-caption { font-size: 0.75rem; font-weight: 500; color: rgba(245,243,239,0.3); text-align: center; margin-top: 0.6rem; margin-bottom: 0.25rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .cs-img-stack > div { display: flex; flex-direction: column; }
+    /* ── SIDE BY SIDE ROW ── */
+    .cs-img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 3rem; }
+    .cs-img-row > div { display: flex; flex-direction: column; }
+    .cs-outcomes { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; border: 1px solid rgba(245,243,239,0.1); border-radius: 10px; overflow: hidden; margin-top: 1rem; }
+    .cs-outcome { padding: 1.25rem 1.1rem; border-right: 1px solid rgba(245,243,239,0.1); position: relative; }
+    .cs-outcome:last-child { border-right: none; }
+    .cs-outcome::before { content: '✓'; display: block; font-size: 0.75rem; color: rgba(245,243,239,0.25); margin-bottom: 0.5rem; }
+    .cs-outcome-text { font-size: 0.8125rem; font-weight: 400; color: rgba(245,243,239,0.5); line-height: 1.5; }
+    @media (max-width: 900px) { :root { --pad: 2rem; } .cs-grid { grid-template-columns: 1fr; gap: 2.5rem; } .cs-metrics { grid-template-columns: repeat(2,1fr); } .cs-outcomes { grid-template-columns: 1fr 1fr; } .cs-img-row { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { :root { --pad: 1.25rem; --nav-h: 68px; } .nav-logo svg { height: 44px; width: 44px; } .nav-links { display: none; } .cs-metrics { grid-template-columns: 1fr 1fr; } .cs-outcomes { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg height="72" width="72" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Martin La Rosa">
+          <path d="M47.68 4.24023C23.27 4.24023 4 23.6502 4 48.2402C4 72.8302 23.27 92.2402 47.68 92.2402C72.09 92.2402 92 72.8302 92 48.2402C92 23.6502 72.09 4.24023 47.68 4.24023ZM65.58 25.4602H67.18V37.3402H65.58V25.4602ZM52.83 25.4602H54.43V32.1502C54.43 34.7802 55.57 35.9702 57.58 35.9702C59.59 35.9702 60.75 34.7802 60.75 32.1502V25.4602H62.3V32.2202C62.3 35.6702 60.52 37.4802 57.56 37.4802C54.6 37.4802 52.82 35.6602 52.82 32.2202V25.4602H52.83ZM69.53 68.5102H58.01V67.5002C60.13 66.8502 60.25 64.3002 60.25 61.2702V49.7702C60.25 46.4502 58.68 44.8502 56.17 44.8502C54.1 44.8502 51.75 47.5202 51.75 49.8902V61.2802C51.75 64.5402 52.03 66.9702 54.04 67.5102V68.5202H42.52V67.5102C44.64 66.8602 44.76 64.3102 44.76 61.2802V49.7802C44.76 46.4602 43.25 44.8602 40.73 44.8602C38.66 44.8602 36.26 47.5902 36.26 49.7202V61.4002C36.26 64.6602 36.6 66.9102 38.55 67.5102V68.5202H27.09V67.5102C29.21 66.8602 29.27 64.4302 29.27 61.4002V48.4102C29.27 46.3302 28.77 45.2702 26.47 43.9602V42.9502L36.25 40.5802V46.6902C37.76 43.2502 41.17 40.5802 44.69 40.5802C48.6 40.5802 51.01 42.4802 51.68 46.8702C52.85 43.2502 56.66 40.5802 60.18 40.5802C64.54 40.5802 67.22 42.4202 67.22 49.5902V61.2702C67.22 64.5302 67.5 66.9602 69.51 67.5002V68.5102H69.53Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-t="nav.home">Home</a></li>
+        <li><a href="about.html" data-t="nav.about">About</a></li>
+        <li><a href="cv.html" data-t="nav.cv">CV</a></li>
+        <li>
+          <button class="lang-sw" id="langSw" aria-label="Switch language">
+            <span class="lang-sw-label" data-lang="en">EN</span>
+            <span class="lang-sw-knob"></span>
+            <span class="lang-sw-label" data-lang="es">ES</span>
+          </button>
+        </li>
+        <li><a href="https://wa.link/5fqk9j" target="_blank" rel="noopener" class="nav-cta">
+          <span class="btn-split" data-t-split="nav.cta">
+            <span class="bs-top">Get in touch</span>
+            <span class="bs-bot">Get in touch</span>
+          </span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="proj-back-wrap">
+      <a href="index.html#recent-projects" class="proj-back">← All Projects</a>
+    </div>
+    <div class="proj-page-hd">
+      <div class="proj-page-hd-inner">
+        <span class="proj-page-num">06</span>
+        <div class="proj-page-meta">
+          <span class="proj-page-cat">UX Strategy · Design Systems · Component Definition · Research</span>
+          <h1 class="proj-page-title">Autodesk — UX Strategy & Component Definition at Scale</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-page-body">
+      <div class="cs-tags">
+        <span class="cs-tag" data-t="cs06.tag1">Product Designer</span>
+        <span class="cs-tag" data-t="cs06.tag2">UX Strategy</span>
+        <span class="cs-tag" data-t="cs06.tag3">Design Systems</span>
+        <span class="cs-tag">Component Definition</span>
+        <span class="cs-tag">Research</span>
+        <span class="cs-tag">Figma</span>
+      </div>
+
+      <div class="cs-metrics">
+        <div class="cs-metric">
+          <div class="cs-metric-n">+40</div>
+          <div class="cs-metric-l" data-t-html="cs06.m1l">Components<br>defined & shipped</div>
+        </div>
+        <div class="cs-metric">
+          <div class="cs-metric-n">3</div>
+          <div class="cs-metric-l" data-t-html="cs06.m2l">Product teams<br>aligned</div>
+        </div>
+        <div class="cs-metric">
+          <div class="cs-metric-n">↑</div>
+          <div class="cs-metric-l" data-t-html="cs06.m3l">Design velocity<br>across squads</div>
+        </div>
+        <div class="cs-metric">
+          <div class="cs-metric-n">Scale</div>
+          <div class="cs-metric-l" data-t-html="cs06.m4l">Enterprise-level<br>UX system</div>
+        </div>
+      </div>
+
+      <p class="cs-statement" data-t-html="cs06.stmt">At Autodesk, scale is the challenge. With multiple product teams and a complex component ecosystem, <strong>the real work is creating a shared language — not just building UI, but defining how decisions get made and communicated.</strong></p>
+
+      <!-- SIDE BY SIDE IMAGES -->
+      <div class="cs-img-row" style="margin-bottom:2.5rem;">
+        <div>
+          <div class="cs-img-full">
+            <img src="img/696e692df22aa6c8db78d8e3_web-portfolio-mockup_1.avif" alt="Autodesk — UX portfolio mockup" />
+          </div>
+          <p class="cs-img-caption" data-t="cs06.cap1">Design system in context — components structured for multi-team adoption and product consistency</p>
+        </div>
+        <div>
+          <div class="cs-img-full">
+            <img src="img/696e6e2223695e4b72d6d215_8864bc7f30b8303f57bfb2de72bf6cef_benchauto.avif" alt="Autodesk — competitive benchmark analysis" />
+          </div>
+          <p class="cs-img-caption" data-t="cs06.cap2">Benchmark & audit — mapping competitor patterns and internal inconsistencies to guide component strategy</p>
+        </div>
+      </div>
+
+      <div class="cs-grid">
+        <div>
+          <span class="cs-label" data-t="cs06.ctx.label">Context & Role</span>
+          <h4 class="cs-h" data-t="cs06.ctx.h">Bringing structure to a complex, multi-team design ecosystem</h4>
+          <p class="cs-p" data-t="cs06.ctx.p1">Autodesk's product surface spans multiple enterprise tools used by millions of designers, engineers, and architects worldwide. The design org faced a growing problem: components were inconsistent across products, decisions were siloed, and there was no clear strategy for how UI patterns should evolve.</p>
+          <p class="cs-p" data-t="cs06.ctx.p2">My role was to define and drive the UX strategy for component standardisation — from auditing the existing library and benchmarking industry patterns, to co-defining components with engineering and aligning multiple product teams around a shared system.</p>
+        </div>
+        <div>
+          <span class="cs-label" data-t="cs06.proc.label">What I did</span>
+          <div class="cs-steps">
+            <div class="cs-step"><span class="cs-step-n">01</span>
+              <div class="cs-step-text" data-t-html="cs06.s1">Research & UX audit<span>Mapped existing components, identified inconsistencies and gaps, analysed usage patterns across product teams</span></div>
+            </div>
+            <div class="cs-step"><span class="cs-step-n">02</span>
+              <div class="cs-step-text" data-t-html="cs06.s2">Competitive benchmark<span>Studied enterprise design systems at scale — Salesforce Lightning, IBM Carbon, Google Material — to extract patterns and principles</span></div>
+            </div>
+            <div class="cs-step"><span class="cs-step-n">03</span>
+              <div class="cs-step-text" data-t-html="cs06.s3">Component definition & documentation<span>Co-authored component specs with engineering: anatomy, states, variants, accessibility guidelines and usage rules</span></div>
+            </div>
+            <div class="cs-step"><span class="cs-step-n">04</span>
+              <div class="cs-step-text" data-t-html="cs06.s4">Validation & iteration<span>Tested components against real product scenarios, gathered feedback from product teams, iterated on edge cases and complex states</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="cs-label" data-t="cs06.ri.label">Research & Insights</span>
+      <div class="cs-grid" style="border-bottom:none; margin-bottom:3rem; padding-bottom:0;">
+        <div>
+          <h4 class="cs-h" data-t="cs06.ri.h">Understanding where the system was breaking</h4>
+          <p class="cs-p" data-t="cs06.ri.p1">The audit revealed that over 60% of UI components existed in multiple variants across different product teams with no shared token base. This fragmentation created inconsistent experiences for end users and significant design debt for teams trying to ship fast.</p>
+          <p class="cs-p" data-t="cs06.ri.p2">Through stakeholder interviews and design reviews, I identified three core friction points: naming inconsistency, unclear component ownership, and absent documentation for complex interaction states.</p>
+        </div>
+        <div>
+          <span class="cs-label" data-t="cs06.str.label">Strategy</span>
+          <div class="cs-steps">
+            <div class="cs-step"><span class="cs-step-n">A</span>
+              <div class="cs-step-text" data-t-html="cs06.str1">Token-first approach<span>Establish shared design tokens for color, spacing, typography and elevation before defining component anatomy</span></div>
+            </div>
+            <div class="cs-step"><span class="cs-step-n">B</span>
+              <div class="cs-step-text" data-t-html="cs06.str2">Atomic component model<span>Define components at the most granular level, ensuring composability and flexibility across diverse product contexts</span></div>
+            </div>
+            <div class="cs-step"><span class="cs-step-n">C</span>
+              <div class="cs-step-text" data-t-html="cs06.str3">Cross-team alignment rituals<span>Weekly design system office hours and async review channels to build shared ownership and surface conflicts early</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="cs-label" data-t="cs.impact">Impact & Outcomes</span>
+      <div class="cs-outcomes">
+        <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs06.o1">40+ components documented with full anatomy, states, variants and accessibility specs</p></div>
+        <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs06.o2">Reduced design inconsistency across 3 major product surfaces</p></div>
+        <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs06.o3">Shared token architecture adopted as foundation for all future component work</p></div>
+        <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs06.o4">Design-to-engineering handoff time reduced through clear component contracts</p></div>
+        <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs06.o5">Established a scalable governance model for the design system org</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-inner">
+      <span class="foot-copy">© 2026 Martin La Rosa — Lima, Perú</span>
+      <div class="foot-links">
+        <a href="about.html">About</a>
+        <a href="cv.html">CV</a>
+        <a href="mailto:martinmind.dg@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/martinlarosa" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  (function() { const nav = document.querySelector('.nav'); if (!nav) return; function updateNav() { nav.classList.toggle('nav-scrolled', window.scrollY > 30); } updateNav(); window.addEventListener('scroll', updateNav, { passive: true }); })();
+  const T = {
+    en: {
+      'nav.home':'Home','nav.about':'About','nav.cv':'CV','nav.cta':'Get in touch',
+      'cs.impact':'Impact & Outcomes',
+      'cs06.tag1':'Product Designer','cs06.tag2':'UX Strategy','cs06.tag3':'Design Systems',
+      'cs06.m1l':'Components<br>defined & shipped','cs06.m2l':'Product teams<br>aligned','cs06.m3l':'Design velocity<br>across squads','cs06.m4l':'Enterprise-level<br>UX system',
+      'cs06.stmt':'At Autodesk, scale is the challenge. With multiple product teams and a complex component ecosystem, <strong>the real work is creating a shared language — not just building UI, but defining how decisions get made and communicated.</strong>',
+      'cs06.cap1':'Design system in context — components structured for multi-team adoption and product consistency',
+      'cs06.cap2':'Benchmark & audit — mapping competitor patterns and internal inconsistencies to guide component strategy',
+      'cs06.ctx.label':'Context & Role','cs06.ctx.h':'Bringing structure to a complex, multi-team design ecosystem',
+      'cs06.ctx.p1':'Autodesk\'s product surface spans multiple enterprise tools used by millions of designers, engineers, and architects worldwide. The design org faced a growing problem: components were inconsistent across products, decisions were siloed, and there was no clear strategy for how UI patterns should evolve.',
+      'cs06.ctx.p2':'My role was to define and drive the UX strategy for component standardisation — from auditing the existing library and benchmarking industry patterns, to co-defining components with engineering and aligning multiple product teams around a shared system.',
+      'cs06.proc.label':'What I did',
+      'cs06.s1':'Research & UX audit<span>Mapped existing components, identified inconsistencies and gaps, analysed usage patterns across product teams</span>',
+      'cs06.s2':'Competitive benchmark<span>Studied enterprise design systems at scale — Salesforce Lightning, IBM Carbon, Google Material — to extract patterns and principles</span>',
+      'cs06.s3':'Component definition & documentation<span>Co-authored component specs with engineering: anatomy, states, variants, accessibility guidelines and usage rules</span>',
+      'cs06.s4':'Validation & iteration<span>Tested components against real product scenarios, gathered feedback from product teams, iterated on edge cases and complex states</span>',
+      'cs06.ri.label':'Research & Insights','cs06.ri.h':'Understanding where the system was breaking',
+      'cs06.ri.p1':'The audit revealed that over 60% of UI components existed in multiple variants across different product teams with no shared token base. This fragmentation created inconsistent experiences for end users and significant design debt for teams trying to ship fast.',
+      'cs06.ri.p2':'Through stakeholder interviews and design reviews, I identified three core friction points: naming inconsistency, unclear component ownership, and absent documentation for complex interaction states.',
+      'cs06.str.label':'Strategy',
+      'cs06.str1':'Token-first approach<span>Establish shared design tokens for color, spacing, typography and elevation before defining component anatomy</span>',
+      'cs06.str2':'Atomic component model<span>Define components at the most granular level, ensuring composability and flexibility across diverse product contexts</span>',
+      'cs06.str3':'Cross-team alignment rituals<span>Weekly design system office hours and async review channels to build shared ownership and surface conflicts early</span>',
+      'cs06.o1':'40+ components documented with full anatomy, states, variants and accessibility specs',
+      'cs06.o2':'Reduced design inconsistency across 3 major product surfaces',
+      'cs06.o3':'Shared token architecture adopted as foundation for all future component work',
+      'cs06.o4':'Design-to-engineering handoff time reduced through clear component contracts',
+      'cs06.o5':'Established a scalable governance model for the design system org',
+    },
+    es: {
+      'nav.home':'Inicio','nav.about':'Sobre mí','nav.cv':'CV','nav.cta':'Contáctame',
+      'cs.impact':'Impacto & Resultados',
+      'cs06.tag1':'Product Designer','cs06.tag2':'Estrategia UX','cs06.tag3':'Design Systems',
+      'cs06.m1l':'Componentes<br>definidos y entregados','cs06.m2l':'Equipos de producto<br>alineados','cs06.m3l':'Velocidad de diseño<br>entre squads','cs06.m4l':'Sistema UX<br>enterprise a escala',
+      'cs06.stmt':'En Autodesk, la escala es el desafío. Con múltiples equipos de producto y un ecosistema complejo de componentes, <strong>el trabajo real es crear un lenguaje compartido — no solo construir UI, sino definir cómo se toman y comunican las decisiones.</strong>',
+      'cs06.cap1':'Sistema de diseño en contexto — componentes estructurados para adopción multi-equipo y consistencia de producto',
+      'cs06.cap2':'Benchmark & auditoría — mapeo de patrones competidores e inconsistencias internas para guiar la estrategia de componentes',
+      'cs06.ctx.label':'Contexto & Rol','cs06.ctx.h':'Aportando estructura a un ecosistema de diseño complejo y multi-equipo',
+      'cs06.ctx.p1':'La superficie de producto de Autodesk abarca múltiples herramientas enterprise usadas por millones de diseñadores, ingenieros y arquitectos en todo el mundo. La organización de diseño enfrentaba un problema creciente: los componentes eran inconsistentes entre productos, las decisiones estaban siloadas y no había una estrategia clara para la evolución de los patrones UI.',
+      'cs06.ctx.p2':'Mi rol fue definir y liderar la estrategia UX para la estandarización de componentes — desde la auditoría de la biblioteca existente y el benchmarking de patrones de la industria, hasta co-definir componentes con ingeniería y alinear múltiples equipos de producto alrededor de un sistema compartido.',
+      'cs06.proc.label':'Lo que hice',
+      'cs06.s1':'Research & auditoría UX<span>Mapeo de componentes existentes, identificación de inconsistencias y gaps, análisis de patrones de uso entre equipos</span>',
+      'cs06.s2':'Benchmark competitivo<span>Estudio de design systems enterprise a escala — Salesforce Lightning, IBM Carbon, Google Material — para extraer patrones y principios</span>',
+      'cs06.s3':'Definición y documentación de componentes<span>Co-autoría de specs de componentes con ingeniería: anatomía, estados, variantes, guías de accesibilidad y reglas de uso</span>',
+      'cs06.s4':'Validación e iteración<span>Prueba de componentes contra escenarios reales de producto, feedback de equipos, iteración sobre edge cases y estados complejos</span>',
+      'cs06.ri.label':'Research & Hallazgos','cs06.ri.h':'Entendiendo dónde se rompía el sistema',
+      'cs06.ri.p1':'La auditoría reveló que más del 60% de los componentes UI existían en múltiples variantes entre equipos de producto sin una base de tokens compartida. Esta fragmentación generaba experiencias inconsistentes para usuarios finales y deuda de diseño significativa.',
+      'cs06.ri.p2':'A través de entrevistas con stakeholders y design reviews, identifiqué tres puntos de fricción principales: inconsistencia en nomenclatura, propiedad de componentes poco clara y documentación ausente para estados de interacción complejos.',
+      'cs06.str.label':'Estrategia',
+      'cs06.str1':'Enfoque token-first<span>Establecer tokens de diseño compartidos para color, espaciado, tipografía y elevación antes de definir la anatomía de componentes</span>',
+      'cs06.str2':'Modelo de componente atómico<span>Definir componentes en el nivel más granular, asegurando composabilidad y flexibilidad en contextos de producto diversos</span>',
+      'cs06.str3':'Rituales de alineación cross-team<span>Office hours semanales de design system y canales de revisión asíncrona para construir ownership compartido y detectar conflictos temprano</span>',
+      'cs06.o1':'40+ componentes documentados con anatomía completa, estados, variantes y specs de accesibilidad',
+      'cs06.o2':'Reducción de inconsistencias de diseño en 3 superficies de producto principales',
+      'cs06.o3':'Arquitectura de tokens compartida adoptada como base para todo el trabajo de componentes futuro',
+      'cs06.o4':'Tiempo de handoff diseño-ingeniería reducido gracias a contratos de componentes claros',
+      'cs06.o5':'Modelo de gobernanza escalable establecido para la organización de design system',
+    }
+  };
+  let lang = localStorage.getItem('lang') || 'en';
+  function applyLang(l) {
+    lang = l; document.documentElement.lang = l; localStorage.setItem('lang', l);
+    document.querySelectorAll('[data-t]').forEach(el => { const v = T[l][el.dataset.t]; if (v !== undefined) el.textContent = v; });
+    document.querySelectorAll('[data-t-html]').forEach(el => { const v = T[l][el.dataset.tHtml]; if (v !== undefined) el.innerHTML = v; });
+    document.querySelectorAll('[data-t-split]').forEach(el => { const v = T[l][el.dataset.tSplit]; if (v !== undefined) { el.querySelector('.bs-top').textContent = v; el.querySelector('.bs-bot').textContent = v; } });
+  }
+  applyLang(lang);
+  document.getElementById('langSw').addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+</script>
+</body>
+</html>

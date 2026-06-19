@@ -64,9 +64,9 @@
       width: 100%;
       max-width: var(--max);
       margin: 0 auto;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
     }
 
     .nav-logo {
@@ -74,12 +74,14 @@
       font-weight: 600;
       letter-spacing: -0.02em;
       color: var(--ink);
+      justify-self: start;
     }
 
     .nav-links {
       display: flex;
       gap: 2.5rem;
       list-style: none;
+      justify-content: center;
     }
 
     .nav-links a {
@@ -91,6 +93,13 @@
 
     .nav-links a:hover,
     .nav-links a.active { color: var(--ink); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      justify-self: end;
+    }
 
     .nav-cta {
       display: inline-flex;
@@ -130,12 +139,22 @@
     /* ─── HERO ─── */
     .hero {
       padding: 0 var(--pad);
+      padding-top: var(--nav-h);
       border-bottom: var(--line);
       position: relative;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      --bx: 8%;
+      --by: 0%;
+      --gx: 92%;
+      --gy: 100%;
       background:
-        radial-gradient(ellipse at 8% 0%, rgba(228, 148, 175, 0.65) 0%, rgba(228, 148, 175, 0.25) 30%, transparent 55%),
-        radial-gradient(ellipse at 92% 100%, rgba(165, 210, 115, 0.60) 0%, rgba(165, 210, 115, 0.20) 30%, transparent 52%),
-        radial-gradient(ellipse at 50% 48%, rgba(255,255,255,0.95) 0%, transparent 55%),
+        radial-gradient(ellipse at var(--bx) var(--by), rgba(228, 120, 165, 0.82) 0%, rgba(228, 148, 175, 0.35) 35%, transparent 62%),
+        radial-gradient(ellipse at var(--gx) var(--gy), rgba(140, 210, 90, 0.78) 0%, rgba(165, 210, 115, 0.30) 35%, transparent 60%),
+        radial-gradient(ellipse at 50% 48%, rgba(255,255,255,0.88) 0%, transparent 52%),
         #f6eeee;
       overflow: hidden;
     }
@@ -164,7 +183,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: calc(var(--nav-h) + 2rem) 0 2.5rem;
+      padding: 0 0 2.5rem;
     }
 
     /* editorial: name full-width */
@@ -371,130 +390,104 @@
       color: var(--ink);
     }
 
-    /* ─── ACCORDION PROJECTS ─── */
-    .acc-list { border-top: var(--line); }
-
-    .acc-item {
-      border-bottom: var(--line);
-      background: var(--cream);
-      overflow: hidden;
-      transition: background 0.45s cubic-bezier(0.19,1,0.22,1);
-      scroll-margin-top: calc(var(--nav-h) + 0.5rem);
-    }
-    .acc-item.open { background: var(--ink); }
-
-    .acc-head {
-      width: 100%;
-      display: block;
-      padding: 0 var(--pad);
-      background: none;
-      border: none;
-      font-family: var(--font);
-      cursor: pointer;
-      text-align: left;
-      transition: background 0.2s;
-    }
-    .acc-head-inner {
+    /* ── PROJECT GALLERY ── */
+    .proj-gallery-wrap {
       max-width: var(--max);
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      padding: 1.5rem 0;
+      border-top: var(--line);
+      border-bottom: var(--line);
     }
-    .acc-head:hover { background: rgba(30,30,33,0.04); }
-    .acc-item.open .acc-head:hover { background: rgba(245,243,239,0.04); }
-
-    .acc-left {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      flex: 1;
-      min-width: 0;
+    .proj-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--ink);
+      margin-bottom: 0;
     }
-
-    .acc-num {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      color: var(--ink-muted);
-      min-width: 1.5rem;
-      transition: color 0.45s;
-    }
-    .acc-item.open .acc-num { color: rgba(245,243,239,0.35); }
-
-    .acc-info { display: flex; flex-direction: column; gap: 0.15rem; }
-
-    .acc-cat {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--ink-muted);
-      transition: color 0.45s;
-    }
-    .acc-item.open .acc-cat { color: rgba(245,243,239,0.4); }
-
-    .acc-title {
-      font-size: clamp(1.1rem, 2vw, 1.75rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+    .proj-card {
+      background: var(--cream);
+      text-decoration: none;
       color: var(--ink);
-      transition: color 0.45s;
-    }
-    .acc-item.open .acc-title { color: var(--cream); }
-
-    .acc-big-n {
-      font-size: clamp(3.5rem, 8vw, 8vw);
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      line-height: 0.85;
-      color: var(--ink);
-      transition: color 0.45s, transform 0.35s cubic-bezier(0.19,1,0.22,1);
-      font-variant-numeric: tabular-nums;
-      user-select: none;
-    }
-    .acc-item.open .acc-big-n { color: var(--cream); }
-    .acc-head:hover .acc-big-n { transform: translateX(-6px) scale(1.04); }
-
-
-    /* expand panel */
-    .acc-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0.19,1,0.22,1);
-    }
-    .acc-item.open .acc-body { max-height: 9999px; }
-
-    .acc-body-inner {
-      padding: 2rem var(--pad) 3.5rem var(--pad);
       display: flex;
       flex-direction: column;
-      gap: 0;
+      overflow: hidden;
       position: relative;
-      max-width: var(--max);
-      margin-left: auto;
-      margin-right: auto;
+      min-height: 340px;
+      transition: background 0.3s;
     }
+    .proj-card:nth-child(1) { grid-column: span 2; min-height: 460px; }
+    .proj-card:nth-child(4) { grid-column: span 2; }
+    .proj-card:nth-child(6) { grid-column: span 2; }
 
-    /* close btn */
-    .acc-close {
-      position: absolute;
-      top: 2rem; right: var(--pad);
-      width: 2.5rem; height: 2.5rem;
-      border-radius: 50%;
-      border: 1.5px solid rgba(245,243,239,0.25);
-      background: none;
-      color: rgba(245,243,239,0.6);
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-      font-family: var(--font);
+    .proj-card-img-wrap {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      background: #e8e5e0;
     }
-    .acc-close:hover { background: rgba(245,243,239,0.12); color: var(--cream); }
+    .proj-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: block;
+    }
+    .proj-card:hover .proj-card-img { transform: scale(1.05); }
+
+    .proj-card-info {
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      border-top: 1px solid rgba(30,30,33,0.12);
+      background: var(--cream);
+      transition: background 0.3s, color 0.3s;
+    }
+    .proj-card:hover .proj-card-info {
+      background: var(--ink);
+      color: var(--cream);
+    }
+    .proj-card-num {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      opacity: 0.3;
+      flex-shrink: 0;
+      min-width: 2rem;
+    }
+    .proj-card-text { flex: 1; }
+    .proj-card-cat {
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      opacity: 0.45;
+      display: block;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+    }
+    .proj-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .proj-card-arrow {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      opacity: 0.4;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .proj-card:hover .proj-card-arrow {
+      transform: translateX(5px);
+      opacity: 1;
+    }
+    @media (max-width: 768px) {
+      .proj-gallery { grid-template-columns: 1fr; }
+      .proj-card:nth-child(1),
+      .proj-card:nth-child(4),
+      .proj-card:nth-child(6) { grid-column: span 1; }
+      .proj-card { min-height: 260px; }
+    }
 
     /* ── CASE STUDY LAYOUT ── */
     .cs-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2.5rem; }
@@ -1055,7 +1048,7 @@
     @media (max-width: 600px) {
       :root { --pad: 1.25rem; --nav-h: 68px; }
       .nav-logo svg { height: 44px; width: 44px; }
-      .nav-links { display: none; }
+      .nav-links, .nav-right { display: none; }
       .hero-name { font-size: clamp(36px, 10vw, 10vw); white-space: normal; padding-bottom: 1.25rem; margin-bottom: 1.25rem; }
       .hero-foot { grid-template-columns: 1fr; gap: 1.5rem; }
       .hero-bar { padding: 1.25rem 0 1.75rem; }
@@ -1081,20 +1074,20 @@
         <li><a href="index.html" class="active" data-t="nav.home">Home</a></li>
         <li><a href="about.html" data-t="nav.about">About</a></li>
         <li><a href="cv.html" data-t="nav.cv">CV</a></li>
-        <li>
-          <button class="lang-sw" id="langSw" aria-label="Switch language">
-            <span class="lang-sw-label" data-lang="en">EN</span>
-            <span class="lang-sw-knob"></span>
-            <span class="lang-sw-label" data-lang="es">ES</span>
-          </button>
-        </li>
-        <li><a href="https://wa.link/5fqk9j" target="_blank" rel="noopener" class="nav-cta">
+      </ul>
+      <div class="nav-right">
+        <button class="lang-sw" id="langSw" aria-label="Switch language">
+          <span class="lang-sw-label" data-lang="en">EN</span>
+          <span class="lang-sw-knob"></span>
+          <span class="lang-sw-label" data-lang="es">ES</span>
+        </button>
+        <a href="https://wa.link/5fqk9j" target="_blank" rel="noopener" class="nav-cta">
           <span class="btn-split" data-t-split="nav.cta">
             <span class="bs-top">Get in touch</span>
             <span class="bs-bot">Get in touch</span>
           </span>
-        </a></li>
-      </ul>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -1102,7 +1095,7 @@
 
     <!-- ── HERO ── -->
     <section class="hero">
-      <div class="hero-inner">
+      <div class="hero-inner" data-parallax="0.18">
         <div class="hero-bar">
           <div class="hero-tag">
             <span class="hero-dot"></span>
@@ -1133,7 +1126,7 @@
 
     <!-- ── ABOUT DARK ── -->
     <div class="about-dark">
-      <div class="about-dark-inner">
+      <div class="about-dark-inner" data-parallax="0.10">
         <div class="about-left">
           <div>
             <p class="about-eyebrow" data-t="about.eyebrow">About</p>
@@ -1187,542 +1180,113 @@
 
     <!-- ── SELECTED WORK ── -->
     <div id="recent-projects" class="section-head" style="border-bottom:none; scroll-margin-top:var(--nav-h);">
-      <div>
+      <div data-parallax="0.08">
         <p class="section-label" data-t="work.label">Selected Work</p>
         <h2 class="section-title" data-t="work.title">Recent Projects</h2>
       </div>
     </div>
 
-    <div class="acc-list">
+    <div class="proj-gallery-wrap">
+    <section class="proj-gallery">
 
-      <!-- 01 -->
-      <div class="acc-item">
-        <button class="acc-head">
-          <div class="acc-head-inner">
-            <div class="acc-left">
-              <span class="acc-num">01</span>
-              <div class="acc-info">
-                <span class="acc-cat" data-t="acc01.cat">Design System · Webflow · 2024–2025</span>
-                <h3 class="acc-title" data-t="acc01.title">Sportian Design System</h3>
-              </div>
-            </div>
-            <span class="acc-big-n">01</span>
-          </div>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-inner">
-            <button class="acc-close" aria-label="Close">✕</button>
-            <div class="cs-tags">
-              <span class="cs-tag" data-t="cs01.tag1">Senior UI Designer</span>
-              <span class="cs-tag" data-t="cs01.tag2">Design Systems</span>
-              <span class="cs-tag">Webflow</span>
-              <span class="cs-tag">Figma</span>
-              <span class="cs-tag" data-t="cs01.tag3">Component Architecture</span>
-              <span class="cs-tag" data-t="cs01.tag4">Cross-functional</span>
-            </div>
-            <div class="cs-metrics">
-              <div class="cs-metric">
-                <div class="cs-metric-n">40+</div>
-                <div class="cs-metric-l" data-t-html="cs01.m1l">Reusable<br>components built</div>
-              </div>
-              <div class="cs-metric">
-                <div class="cs-metric-n">3</div>
-                <div class="cs-metric-l" data-t-html="cs01.m2l">Squads aligned<br>to one system</div>
-              </div>
-              <div class="cs-metric">
-                <div class="cs-metric-n">~60%</div>
-                <div class="cs-metric-l" data-t-html="cs01.m3l">Faster page<br>creation</div>
-              </div>
-              <div class="cs-metric">
-                <div class="cs-metric-n">1</div>
-                <div class="cs-metric-l" data-t-html="cs01.m4l">Unified token-based<br>design language</div>
-              </div>
-            </div>
-            <p class="cs-statement" data-t-html="cs01.stmt">Sportian's web presence had grown organically across multiple initiatives — the real problem wasn't visual, it was <strong>the absence of shared rules that slowed every team down.</strong></p>
-            <div class="cs-img-full" style="margin-bottom:0.5rem;">
-              <img src="img/sportian-laptop.gif" alt="Sportian" />
-            </div>
-            <p class="cs-img-caption" style="margin-bottom:2.5rem;" data-t="cs01.cap1">Live site — new Sportian web experience, migrated to Webflow</p>
-            <div class="cs-grid">
-              <div>
-                <span class="cs-label" data-t="cs.ctx-challenge">Context & Challenge</span>
-                <h4 class="cs-h" data-t="cs01.ctx.h">Fragmented system, growing visual debt</h4>
-                <p class="cs-p" data-t="cs01.ctx.p1">Sportian is a global sports-tech company (a Globant venture) serving LaLiga, Serie A, and top-tier clubs worldwide. Their web presence had scaled faster than their design rules — inconsistent components, duplicated patterns, and no shared vocabulary between design and dev.</p>
-                <p class="cs-p" data-t="cs01.ctx.p2">My mandate was to audit, systematize, and migrate — without halting ongoing marketing and product releases.</p>
-              </div>
-              <div>
-                <span class="cs-label" data-t="cs.my-process">My Process</span>
-                <div class="cs-steps">
-                  <div class="cs-step"><span class="cs-step-n">01</span>
-                    <div class="cs-step-text" data-t-html="cs01.s1">Visual & component audit<span>Mapped all existing UI across 12+ pages, identified 80+ inconsistencies</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">02</span>
-                    <div class="cs-step-text" data-t-html="cs01.s2">Token architecture<span>Defined color, spacing, type & motion tokens in Figma Variables</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">03</span>
-                    <div class="cs-step-text" data-t-html="cs01.s3">Component library<span>Built 40+ reusable components with auto-layout, variants & documentation</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">04</span>
-                    <div class="cs-step-text" data-t-html="cs01.s4">Webflow migration<span>Translated the system into Webflow CMS — zero loss of design fidelity</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">05</span>
-                    <div class="cs-step-text" data-t-html="cs01.s5">Governance & handoff<span>Created naming conventions, usage guidelines, and onboarding docs for 3 teams</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cs-img-stack">
-              <div><div class="cs-img-full"><img src="img/websportian_DS.jpg" alt="Sportian DS" /></div>
-                <p class="cs-img-caption" data-t="cs01.cap2">Component architecture — type scale, icon sets & reusable UI blocks built in Figma</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/websportian_WF.jpg" alt="Sportian WF" /></div>
-                <p class="cs-img-caption" data-t="cs01.cap3">Webflow migration — design system translated into CMS components with zero fidelity loss</p>
-              </div>
-              <div><div class="cs-img-full cs-img-full--blend"><img src="img/sportian-comparison.png" alt="Sportian Before After" /></div>
-                <p class="cs-img-caption" data-t="cs01.cap4">Before vs. After — fragmented system → unified design language</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/sportian-new.avif" alt="Sportian new" /></div>
-                <p class="cs-img-caption" data-t="cs01.cap5">New system in production — reusable components across all Sportian touchpoints</p>
-              </div>
-            </div>
-            <a href="https://www.sportian.com" target="_blank" rel="noopener" class="cs-live-link">
-              <span class="cs-live-dot"></span>sportian.com<span class="cs-live-arrow">↗</span>
-            </a>
-            <span class="cs-label" data-t="cs.impact">Impact & Outcomes</span>
-            <div class="cs-outcomes">
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs01.o1">Unified visual language across all web touchpoints</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs01.o2">~60% faster page production with reusable Webflow components</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs01.o3">80+ visual inconsistencies resolved in a single audit cycle</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs01.o4">3 cross-functional teams aligned to one design language</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs01.o5">Scalable token architecture ready for future product growth</p></div>
-            </div>
-          </div>
+      <a href="project-01.html" class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img src="img/sportian-laptop.gif" class="proj-card-img" alt="Sportian Design System" />
         </div>
-      </div>
-
-      <!-- 02 -->
-      <div class="acc-item">
-        <button class="acc-head">
-          <div class="acc-head-inner">
-            <div class="acc-left">
-              <span class="acc-num">02</span>
-              <div class="acc-info">
-                <span class="acc-cat" data-t="acc02.cat">Website Design · Webflow · Visual Concept</span>
-                <h3 class="acc-title" data-t="acc02.title">Slinky — Website & Visual Concept</h3>
-              </div>
-            </div>
-            <span class="acc-big-n">02</span>
+        <div class="proj-card-info">
+          <span class="proj-card-num">01</span>
+          <div class="proj-card-text">
+            <span class="proj-card-cat" data-t="acc01.cat">Design System · Webflow · 2024–2025</span>
+            <h3 class="proj-card-title" data-t="acc01.title">Sportian Design System</h3>
           </div>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-inner">
-            <button class="acc-close" aria-label="Close">✕</button>
-            <div class="cs-tags">
-              <span class="cs-tag" data-t="cs01.tag1">Senior UI Designer</span>
-              <span class="cs-tag" data-t="cs02.tag2">Visual Concept</span>
-              <span class="cs-tag">Webflow</span>
-              <span class="cs-tag">UX</span>
-              <span class="cs-tag">SEO</span>
-              <span class="cs-tag" data-t="cs02.tag3">Creative Studio</span>
-            </div>
-            <div class="cs-metrics">
-              <div class="cs-metric">
-                <div class="cs-metric-n">6+</div>
-                <div class="cs-metric-l" data-t-html="cs02.m1l">Key pages<br>redesigned</div>
-              </div>
-              <div class="cs-metric">
-                <div class="cs-metric-n">1</div>
-                <div class="cs-metric-l" data-t-html="cs02.m2l">Unified visual<br>concept defined</div>
-              </div>
-              <div class="cs-metric">
-                <div class="cs-metric-n">100%</div>
-                <div class="cs-metric-l" data-t-html="cs02.m3l">Responsive &<br>SEO-optimized</div>
-              </div>
-              <div class="cs-metric">
-                <div class="cs-metric-n">0→1</div>
-                <div class="cs-metric-l" data-t-html="cs02.m4l">Design system<br>from scratch</div>
-              </div>
-            </div>
-            <p class="cs-statement" data-t-html="cs02.stmt">The site wasn't broken — it just had <strong>no visual north. Each page was its own island,</strong> disconnected from a shared brand direction.</p>
-            <div class="cs-img-full" style="margin-bottom:0.5rem;">
-              <img src="img/porta_slinky.gif" alt="Slinky" />
-            </div>
-            <p class="cs-img-caption" style="margin-bottom:2.5rem;" data-t="cs02.cap1">Live site — Slinky creative studio, implemented in Webflow</p>
-            <div class="cs-grid">
-              <div>
-                <span class="cs-label" data-t="cs.ctx-challenge">Context & Challenge</span>
-                <h4 class="cs-h" data-t="cs02.ctx.h">No visual direction, growing incoherence</h4>
-                <p class="cs-p" data-t="cs02.ctx.p1">Slinky is a creative digital studio offering web design, strategy, and campaigns. Their website had grown without a defined visual concept — inconsistent layouts, unclear hierarchy, and a fragmented brand perception that didn't reflect their creative capabilities.</p>
-                <p class="cs-p" data-t="cs02.ctx.p2">The challenge: redesign from a strategic visual concept first, then build a scalable, performant site in Webflow.</p>
-              </div>
-              <div>
-                <span class="cs-label" data-t="cs.my-process">My Process</span>
-                <div class="cs-steps">
-                  <div class="cs-step"><span class="cs-step-n">01</span>
-                    <div class="cs-step-text" data-t-html="cs02.s1">Visual & UX audit<span>Mapped all existing pages, identified hierarchy and consistency issues</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">02</span>
-                    <div class="cs-step-text" data-t-html="cs02.s2">Visual concept definition<span>Defined typography, color, motion and layout rules to guide all design decisions</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">03</span>
-                    <div class="cs-step-text" data-t-html="cs02.s3">Website redesign<span>Rebuilt key pages around reusable sections and predictable layout patterns</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">04</span>
-                    <div class="cs-step-text" data-t-html="cs02.s4">Webflow implementation<span>Built with a structured class system — responsive, performant, SEO-ready</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">05</span>
-                    <div class="cs-step-text" data-t-html="cs02.s5">QA & continuous iteration<span>Live QA across devices, performance tuning and ongoing design updates</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cs-img-stack">
-              <div><div class="cs-img-full"><img src="img/slynkiwf.png" alt="Slinky WF" /></div>
-                <p class="cs-img-caption" data-t="cs02.cap2">Webflow implementation — reusable components & structured class system</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/img_slinky_img_7.jpg" alt="Slinky mobile" /></div>
-                <p class="cs-img-caption" data-t="cs02.cap3">Fully responsive — mobile-first layout with consistent visual concept</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/img_slinky_2.png" alt="Slinky full" /></div>
-                <p class="cs-img-caption" data-t="cs02.cap4">Complete redesign — unified visual language across all pages</p>
-              </div>
-            </div>
-            <a href="https://www.slinky.pe" target="_blank" rel="noopener" class="cs-live-link">
-              <span class="cs-live-dot"></span>slinky.pe<span class="cs-live-arrow">↗</span>
-            </a>
-            <span class="cs-label" data-t="cs.impact">Impact & Outcomes</span>
-            <div class="cs-outcomes">
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs02.o1">Clear visual concept guiding all design decisions</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs02.o2">Consistent hierarchy and layout across all pages</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs02.o3">Reusable Webflow components for faster updates</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs02.o4">Responsive behavior across all devices</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs02.o5">SEO & performance improvements post-launch</p></div>
-            </div>
-          </div>
+          <span class="proj-card-arrow">→</span>
         </div>
-      </div>
+      </a>
 
-      <!-- 03 -->
-      <div class="acc-item">
-        <button class="acc-head">
-          <div class="acc-head-inner">
-            <div class="acc-left">
-              <span class="acc-num">03</span>
-              <div class="acc-info">
-                <span class="acc-cat" data-t="acc03.cat">Landing Page · Banking · Conversion Optimization</span>
-                <h3 class="acc-title" data-t="acc03.title">BanBif — Credit Card Landing Page</h3>
-              </div>
-            </div>
-            <span class="acc-big-n">03</span>
-          </div>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-inner">
-            <button class="acc-close" aria-label="Close">✕</button>
-
-            <div class="cs-tags">
-              <span class="cs-tag" data-t="cs03.tag1">Product Designer</span>
-              <span class="cs-tag">UX</span><span class="cs-tag">IA</span>
-              <span class="cs-tag" data-t="cs03.tag2">Landing Page</span>
-              <span class="cs-tag" data-t="cs03.tag3">Conversion Optimization</span>
-              <span class="cs-tag" data-t="cs03.tag4">Banking</span>
-            </div>
-            <div class="cs-metrics">
-              <div class="cs-metric"><div class="cs-metric-n">+38%</div>
-                <div class="cs-metric-l" data-t-html="cs03.m1l">Lead form<br>completion</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">−52%</div>
-                <div class="cs-metric-l" data-t-html="cs03.m2l">Drop-off at<br>key step</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">3→1</div>
-                <div class="cs-metric-l" data-t-html="cs03.m3l">Flows unified<br>into one path</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">0→1</div>
-                <div class="cs-metric-l" data-t-html="cs03.m4l">IA strategy<br>from scratch</div>
-              </div>
-            </div>
-            <p class="cs-statement" data-t-html="cs03.stmt">Users weren't converting — not because the product wasn't good, but because <strong>the page never told them clearly what to do next.</strong></p>
-            <div class="cs-img-full" style="margin-bottom:0.5rem;">
-              <img src="img/porta_banbif.png" alt="BanBif" />
-            </div>
-            <p class="cs-img-caption" style="margin-bottom:2.5rem;" data-t="cs03.cap1">BanBif credit card landing page — redesigned for clarity and conversion</p>
-            <div class="cs-grid">
-              <div>
-                <span class="cs-label" data-t="cs.ctx-challenge">Context & Challenge</span>
-                <h4 class="cs-h" data-t="cs03.ctx.h">A landing page that didn't convert</h4>
-                <p class="cs-p" data-t="cs03.ctx.p1">BanBif needed to increase credit card applications through their digital channel. The existing landing page had multiple entry points, fragmented messaging, and a form flow that created friction at critical steps — resulting in high drop-off before submission.</p>
-                <p class="cs-p" data-t="cs03.ctx.p2">My role: own the UX strategy end-to-end — from information architecture and user flow definition to wireframes, prototypes, and handoff — within a fast-moving financial services context.</p>
-              </div>
-              <div>
-                <span class="cs-label" data-t="cs.my-process">My Process</span>
-                <div class="cs-steps">
-                  <div class="cs-step"><span class="cs-step-n">01</span>
-                    <div class="cs-step-text" data-t-html="cs03.s1">Discovery & audit<span>Reviewed analytics, heatmaps, and drop-off data to identify friction points in the existing flow</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">02</span>
-                    <div class="cs-step-text" data-t-html="cs03.s2">IA strategy<span>Restructured content hierarchy — one clear value prop, one primary CTA, progressive disclosure for details</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">03</span>
-                    <div class="cs-step-text" data-t-html="cs03.s3">Wireframes & flow<span>Designed low-to-mid fidelity wireframes covering all states — empty, error, loading, success</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">04</span>
-                    <div class="cs-step-text" data-t-html="cs03.s4">Prototype & validation<span>Clickable prototype tested with real users; iterated on form step order and label clarity</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">05</span>
-                    <div class="cs-step-text" data-t-html="cs03.s5">Handoff & QA<span>Annotated specs delivered in Figma; worked directly with dev team during implementation</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cs-img-stack">
-              <div><div class="cs-img-full"><img src="img/Frame 28051.jpg" alt="BanBif IA" /></div>
-                <p class="cs-img-caption" data-t="cs03.cap2">IA strategy — restructured content hierarchy with a single conversion path</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/Preview 6.jpg" alt="BanBif WF" /></div>
-                <p class="cs-img-caption" data-t="cs03.cap3">Wireframe flow — progressive disclosure reducing cognitive load at each step</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/6.jpg" alt="BanBif states" /></div>
-                <p class="cs-img-caption" data-t="cs03.cap4">Form states — empty, error, and success variations for consistent feedback</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/8.jpg" alt="BanBif mobile" /></div>
-                <p class="cs-img-caption" data-t="cs03.cap5">Mobile layout — optimized for the primary access channel (80%+ mobile traffic)</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/9.jpg" alt="BanBif final" /></div>
-                <p class="cs-img-caption" data-t="cs03.cap6">Final design — unified landing page with clear hierarchy and single CTA path</p>
-              </div>
-            </div>
-            <a href="https://www.figma.com/design/J1azSeb7IctuQST0nbLi3J/Banbif?node-id=725-2&t=941wV1NEJtx67izk-1" target="_blank" rel="noopener" class="cs-live-link">
-              <span class="cs-live-dot" style="background:#a259ff;"></span>
-              <span data-t="cs03.figma">View in Figma</span>
-              <span class="cs-live-arrow">↗</span>
-            </a>
-            <span class="cs-label" data-t="cs.impact">Impact & Outcomes</span>
-            <div class="cs-outcomes">
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs03.o1">+38% lead form completion rate post-launch</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs03.o2">Drop-off reduced at the critical form step</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs03.o3">3 fragmented flows consolidated into 1 clear path</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs03.o4">Full mobile-first responsive implementation</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs03.o5">Reusable Figma components handed off to dev</p></div>
-            </div>
-
-          </div>
+      <a href="project-02.html" class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img src="img/porta_slinky.gif" class="proj-card-img" alt="Slinky" />
         </div>
-      </div>
-
-      <!-- 04 -->
-      <div class="acc-item">
-        <button class="acc-head">
-          <div class="acc-head-inner">
-            <div class="acc-left">
-              <span class="acc-num">04</span>
-              <div class="acc-info">
-                <span class="acc-cat" data-t="acc04.cat">UI Design · Banking · Web & Mobile</span>
-                <h3 class="acc-title" data-t="acc04.title">BBVA — UI Design & Product Interfaces</h3>
-              </div>
-            </div>
-            <span class="acc-big-n">04</span>
+        <div class="proj-card-info">
+          <span class="proj-card-num">02</span>
+          <div class="proj-card-text">
+            <span class="proj-card-cat" data-t="acc02.cat">Website Design · Webflow · Visual Concept</span>
+            <h3 class="proj-card-title" data-t="acc02.title">Slinky — Website & Visual Concept</h3>
           </div>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-inner">
-            <button class="acc-close" aria-label="Close">✕</button>
-
-            <div class="cs-tags">
-              <span class="cs-tag" data-t="cs04.tag1">UI Designer</span>
-              <span class="cs-tag" data-t="cs04.tag2">Visual Design</span>
-              <span class="cs-tag" data-t="cs01.tag2">Design System</span>
-              <span class="cs-tag">Web</span>
-              <span class="cs-tag">Mobile</span>
-              <span class="cs-tag">Figma</span>
-            </div>
-            <div class="cs-metrics">
-              <div class="cs-metric"><div class="cs-metric-n">4+</div>
-                <div class="cs-metric-l" data-t-html="cs04.m1l">Products &<br>platforms</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">Web+App</div>
-                <div class="cs-metric-l" data-t-html="cs04.m2l">Cross-platform<br>coverage</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">1 DS</div>
-                <div class="cs-metric-l" data-t-html="cs04.m3l">Design system<br>followed</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">100%</div>
-                <div class="cs-metric-l" data-t-html="cs04.m4l">Delivered &<br>shipped</div>
-              </div>
-            </div>
-            <p class="cs-statement" data-t-html="cs04.stmt">Working inside a regulated, large-scale system means <strong>every pixel has to earn its place — clarity, consistency, and accessibility are non-negotiable.</strong></p>
-
-            <!-- Hero image -->
-            <div class="cs-img-full" style="margin-bottom:0.5rem;">
-              <img src="img/web-portfolio-mockup_11.jpg" alt="BBVA — product interfaces overview" />
-            </div>
-            <p class="cs-img-caption" style="margin-bottom:2.5rem;" data-t="cs04.cap1">BBVA — digital financial products for web and mobile platforms</p>
-            <div class="cs-grid">
-              <div>
-                <span class="cs-label" data-t="cs04.ctx.label">Context & Role</span>
-                <h4 class="cs-h" data-t="cs04.ctx.h">UI design inside a large-scale financial system</h4>
-                <p class="cs-p" data-t="cs04.ctx.p1">At BBVA, I worked as a UI and visual designer within a multidisciplinary team, designing interfaces for digital financial products — from landing pages and onboarding flows to core banking features for web and mobile.</p>
-                <p class="cs-p" data-t="cs04.ctx.p2">The environment demanded strict adherence to BBVA's global design system while solving real UX problems: improving clarity at critical moments, reducing errors in transactional flows, and maintaining visual consistency across devices.</p>
-              </div>
-              <div>
-                <span class="cs-label" data-t="cs04.proc.label">What I did</span>
-                <div class="cs-steps">
-                  <div class="cs-step"><span class="cs-step-n">01</span>
-                    <div class="cs-step-text" data-t-html="cs04.s1">Screen & component design<span>Designed UI for key flows in web and mobile products following BBVA's design system guidelines</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">02</span>
-                    <div class="cs-step-text" data-t-html="cs04.s2">Visual adaptation of new features<span>Ensured hierarchy, readability, and accessibility across devices and viewports</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">03</span>
-                    <div class="cs-step-text" data-t-html="cs04.s3">Cross-team collaboration<span>Worked with product managers and engineers to validate and refine UI proposals iteratively</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">04</span>
-                    <div class="cs-step-text" data-t-html="cs04.s4">Graphic assets & documentation<span>Produced visual assets and annotated Figma specs for accurate, efficient dev handoff</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="cs-img-stack">
-              <div><div class="cs-img-full"><img src="img/contact.jpg" alt="BBVA products" /></div>
-                <p class="cs-img-caption" data-t="cs04.cap2">Multi-product landing pages — Link de pago, POS, and payment hub designed with consistent hierarchy</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/img-1.jpg" alt="BBVA Figma" /></div>
-                <p class="cs-img-caption" data-t="cs04.cap3">Figma documentation — annotated flow specs delivered to development for precise implementation</p>
-              </div>
-            </div>
-            <span class="cs-label" data-t="cs.impact">Impact & Outcomes</span>
-            <div class="cs-outcomes">
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs04.o1">4+ digital products designed and shipped</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs04.o2">Consistent UI across web and mobile platforms</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs04.o3">Design system applied at scale across all deliverables</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs04.o4">Full annotated Figma specs for dev handoff</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs04.o5">Transactional flows improved for clarity and trust</p></div>
-            </div>
-
-          </div>
+          <span class="proj-card-arrow">→</span>
         </div>
-      </div>
+      </a>
 
-      <!-- 05 -->
-      <div class="acc-item">
-        <button class="acc-head">
-          <div class="acc-head-inner">
-            <div class="acc-left">
-              <span class="acc-num">05</span>
-              <div class="acc-info">
-                <span class="acc-cat" data-t="acc05.cat">Brand Identity · Game UI · Visual Design</span>
-                <h3 class="acc-title" data-t="acc05.title">Pinkhu Games — Brand Identity & Game UI Exploration</h3>
-              </div>
-            </div>
-            <span class="acc-big-n">05</span>
-          </div>
-        </button>
-        <div class="acc-body">
-          <div class="acc-body-inner">
-            <button class="acc-close" aria-label="Close">✕</button>
-
-            <div class="cs-tags">
-              <span class="cs-tag" data-t="cs05.tag1">Brand Designer</span>
-              <span class="cs-tag" data-t="cs05.tag2">Brand Identity</span>
-              <span class="cs-tag" data-t="cs05.tag3">Game UI</span>
-              <span class="cs-tag">Visual Design</span>
-              <span class="cs-tag">Illustration</span>
-              <span class="cs-tag">Figma</span>
-            </div>
-            <div class="cs-metrics">
-              <div class="cs-metric"><div class="cs-metric-n">1</div>
-                <div class="cs-metric-l" data-t-html="cs05.m1l">Studio brand<br>from scratch</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">2</div>
-                <div class="cs-metric-l" data-t-html="cs05.m2l">Systems built<br>identity + UI</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">Casual</div>
-                <div class="cs-metric-l" data-t-html="cs05.m3l">Gaming<br>audience</div>
-              </div>
-              <div class="cs-metric"><div class="cs-metric-n">0→1</div>
-                <div class="cs-metric-l" data-t-html="cs05.m4l">Built from<br>blank canvas</div>
-              </div>
-            </div>
-            <p class="cs-statement" data-t-html="cs05.stmt">When building from scratch for a game studio, every decision is a foundation — <strong>the brand, the UI, and the in-game experience must all speak the same visual language.</strong></p>
-
-            <!-- Hero image -->
-            <div class="cs-img-full" style="margin-bottom:0.5rem;">
-              <img src="img/68ec4e30b9a096633f319629_Comp-1_1.gif" alt="Pinkhu Games — animated logo" />
-            </div>
-            <p class="cs-img-caption" style="margin-bottom:2.5rem;" data-t="cs05.cap1">Pinkhu Games — animated brand identity with mascot logo, playful motion and sky-blue palette</p>
-
-            <div class="cs-grid">
-              <div>
-                <span class="cs-label" data-t="cs05.ctx.label">Context & Role</span>
-                <h4 class="cs-h" data-t="cs05.ctx.h">Defining a visual identity for a casual game studio</h4>
-                <p class="cs-p" data-t="cs05.ctx.p1">Pinkhu Games is a casual game studio focused on creating playful, friendly, and accessible gaming experiences. The challenge was to define a strong visual identity that could translate seamlessly into game UI elements, marketing assets, and future digital products.</p>
-                <p class="cs-p" data-t="cs05.ctx.p2">I supported the project as a designer focused on brand definition and game UI foundations — working across visual identity, typography, color systems, and interface exploration.</p>
-              </div>
-              <div>
-                <span class="cs-label" data-t="cs05.proc.label">What I did</span>
-                <div class="cs-steps">
-                  <div class="cs-step"><span class="cs-step-n">01</span>
-                    <div class="cs-step-text" data-t-html="cs05.s1">Brand identity exploration<span>Logo and visual language definition, mascot character design and brand personality</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">02</span>
-                    <div class="cs-step-text" data-t-html="cs05.s2">Typography & color system<span>Omnes Bold/Regular selection, vibrant palette with navy, hot pink and sky blue</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">03</span>
-                    <div class="cs-step-text" data-t-html="cs05.s3">Game UI visual direction<span>Buttons, HUD components, cards, panels and visual feedback states — clear, playful, accessible</span></div>
-                  </div>
-                  <div class="cs-step"><span class="cs-step-n">04</span>
-                    <div class="cs-step-text" data-t-html="cs05.s4">Brand → UI translation<span>Ensuring brand identity flows naturally into game interfaces for consistency across all touchpoints</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Visual Identity -->
-            <span class="cs-label" data-t="cs05.vi.label">Visual Identity</span>
-            <div class="cs-img-stack">
-              <div><div class="cs-img-full"><img src="img/pinku_2.jpg" alt="Pinkhu Games — typography & brand system" /></div>
-                <p class="cs-img-caption" data-t="cs05.cap2">Brand system — Omnes typeface, vibrant color palette and logo variations across dark and light backgrounds</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/pinkhu_s4.png" alt="Pinkhu Games — Make Games Feel Magic" /></div>
-                <p class="cs-img-caption" data-t="cs05.cap3">Website hero — brand personality translated to the main landing experience with mascot, bold type and color</p>
-              </div>
-            </div>
-
-            <!-- Game UI -->
-            <span class="cs-label" data-t="cs05.gui.label">Game UI Direction</span>
-            <div class="cs-img-stack">
-              <div><div class="cs-img-full"><img src="img/pinkhu_s6.png" alt="Pinkhu Games — Design That Plays With You" /></div>
-                <p class="cs-img-caption" data-t="cs05.cap4">Design system in action — color tokens, typography hierarchy and game UI components applied across the product</p>
-              </div>
-              <div><div class="cs-img-full"><img src="img/pinkhu_select.png" alt="Pinkhu Games — Select Your Adventure" /></div>
-                <p class="cs-img-caption" data-t="cs05.cap5">Game catalog — brand language scaling from identity to interactive product pages with featured games and categories</p>
-              </div>
-            </div>
-
-            <span class="cs-label" data-t="cs.impact">Impact & Outcomes</span>
-            <div class="cs-outcomes">
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs05.o1">Full visual identity defined from scratch — logo, color, type and mascot</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs05.o2">Brand system that scales from marketing to in-game UI seamlessly</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs05.o3">Game UI direction with clear hierarchy, friendly iconography and visual feedback</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs05.o4">Consistent visual language across all studio touchpoints</p></div>
-              <div class="cs-outcome"><p class="cs-outcome-text" data-t="cs05.o5">Foundation ready for product expansion and future game titles</p></div>
-            </div>
-
-          </div>
+      <a href="project-03.html" class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img src="img/porta_banbif.png" class="proj-card-img" alt="BanBif" />
         </div>
-      </div>
+        <div class="proj-card-info">
+          <span class="proj-card-num">03</span>
+          <div class="proj-card-text">
+            <span class="proj-card-cat" data-t="acc03.cat">Landing Page · Banking · Conversion Optimization</span>
+            <h3 class="proj-card-title" data-t="acc03.title">BanBif — Credit Card Landing Page</h3>
+          </div>
+          <span class="proj-card-arrow">→</span>
+        </div>
+      </a>
 
+      <a href="project-04.html" class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img src="img/web-portfolio-mockup_11.jpg" class="proj-card-img" alt="BBVA" />
+        </div>
+        <div class="proj-card-info">
+          <span class="proj-card-num">04</span>
+          <div class="proj-card-text">
+            <span class="proj-card-cat" data-t="acc04.cat">UI Design · Banking · Web & Mobile</span>
+            <h3 class="proj-card-title" data-t="acc04.title">BBVA — UI Design & Product Interfaces</h3>
+          </div>
+          <span class="proj-card-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="project-05.html" class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img src="img/pinku_1.jpg" class="proj-card-img" alt="Pinkhu Games" />
+        </div>
+        <div class="proj-card-info">
+          <span class="proj-card-num">05</span>
+          <div class="proj-card-text">
+            <span class="proj-card-cat" data-t="acc05.cat">Brand Identity · Game UI · Visual Design</span>
+            <h3 class="proj-card-title" data-t="acc05.title">Pinkhu Games — Brand Identity & Game UI</h3>
+          </div>
+          <span class="proj-card-arrow">→</span>
+        </div>
+      </a>
+
+      <a href="project-06.html" class="proj-card">
+        <div class="proj-card-img-wrap">
+          <img src="img/porta_auto.gif" class="proj-card-img" alt="Autodesk" />
+        </div>
+        <div class="proj-card-info">
+          <span class="proj-card-num">06</span>
+          <div class="proj-card-text">
+            <span class="proj-card-cat" data-t="acc06.cat">UX Strategy · Design Systems · Component Definition</span>
+            <h3 class="proj-card-title" data-t="acc06.title">Autodesk — UX Strategy & Component Definition at Scale</h3>
+          </div>
+          <span class="proj-card-arrow">→</span>
+        </div>
+      </a>
+
+    </section>
     </div>
+
 
     <!-- ── SERVICES ── -->
     <div class="section-head">
-      <div>
+      <div data-parallax="0.08">
         <p class="section-label" data-t="exp.label">Expertise</p>
         <h2 class="section-title" data-t="exp.title">What I do</h2>
       </div>
     </div>
 
     <div class="services">
-      <div class="services-grid">
+      <div class="services-grid" data-parallax="0.08">
         <div class="svc">
           <span class="svc-n">01</span>
           <div class="svc-line"></div>
@@ -1752,7 +1316,7 @@
 
     <!-- ── CTA ── -->
     <section class="cta">
-      <div class="cta-inner">
+      <div class="cta-inner" data-parallax="0.10">
         <p class="cta-eyebrow" data-t="cta.eyebrow">Let's talk</p>
         <h2 class="cta-h" data-t-html="cta.h">Ready to build<br>something great?</h2>
         <p class="cta-sub" data-t="cta.sub">Open to full-time roles, freelance projects, and consulting. Remote-ready from Lima, Perú.</p>
@@ -1791,47 +1355,6 @@
     window.addEventListener('scroll', updateNav, { passive: true });
   })();
 
-  /* ── Accordion ── */
-  (function () {
-    function scrollToItem(item) {
-      const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 90;
-      const top = item.getBoundingClientRect().top + window.scrollY - navH - 8;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
-
-    document.querySelectorAll('.acc-head').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item   = btn.closest('.acc-item');
-        const list   = item.closest('.acc-list');
-        const isOpen = item.classList.contains('open');
-        const other  = list.querySelector('.acc-item.open');
-
-        list.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
-
-        if (!isOpen) {
-          if (other && other !== item) {
-            // switching: scroll to collapsed target first, then expand
-            scrollToItem(item);
-            setTimeout(() => item.classList.add('open'), 420);
-          } else {
-            // opening fresh: expand then scroll into view
-            item.classList.add('open');
-            setTimeout(() => scrollToItem(item), 60);
-          }
-        }
-      });
-    });
-
-    document.querySelectorAll('.acc-close').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        const item = btn.closest('.acc-item');
-        item.classList.remove('open');
-        setTimeout(() => scrollToItem(item), 60);
-      });
-    });
-  })();
-
   /* ── i18n ── */
   const T = {
     en: {
@@ -1849,6 +1372,7 @@
       'acc03.cat':'Landing Page · Banking · Conversion Optimization','acc03.title':'BanBif — Credit Card Landing Page',
       'acc04.cat':'UI Design · Banking · Web & Mobile','acc04.title':'BBVA — UI Design & Product Interfaces',
       'acc05.cat':'Brand Identity · Game UI · Visual Design','acc05.title':'Pinkhu Games — Brand Identity & Game UI Exploration',
+      'acc06.cat':'UX Strategy · Design Systems · Component Definition','acc06.title':'Autodesk — UX Strategy & Component Definition at Scale',
       'cs05.tag1':'Brand Designer','cs05.tag2':'Brand Identity','cs05.tag3':'Game UI',
       'cs05.m1l':'Studio brand<br>from scratch','cs05.m2l':'Systems built<br>identity + UI','cs05.m3l':'Gaming<br>audience','cs05.m4l':'Built from<br>blank canvas',
       'cs05.stmt':'When building from scratch for a game studio, every decision is a foundation — <strong>the brand, the UI, and the in-game experience must all speak the same visual language.</strong>',
@@ -1968,6 +1492,7 @@
       'acc03.cat':'Landing Page · Banca · Optimización de Conversión','acc03.title':'BanBif — Landing de Tarjeta de Crédito',
       'acc04.cat':'Diseño UI · Banca · Web & Móvil','acc04.title':'BBVA — Diseño UI & Interfaces de Producto',
       'acc05.cat':'Identidad de Marca · Game UI · Diseño Visual','acc05.title':'Pinkhu Games — Identidad de Marca & Exploración de Game UI',
+      'acc06.cat':'Estrategia UX · Design Systems · Definición de Componentes','acc06.title':'Autodesk — Estrategia UX & Definición de Componentes a Escala',
       'cs05.tag1':'Diseñador de Marca','cs05.tag2':'Identidad de Marca','cs05.tag3':'Game UI',
       'cs05.m1l':'Marca de estudio<br>desde cero','cs05.m2l':'Sistemas creados<br>identidad + UI','cs05.m3l':'Audiencia<br>casual gaming','cs05.m4l':'Construido desde<br>hoja en blanco',
       'cs05.stmt':'Al construir desde cero para un estudio de juegos, cada decisión es una base — <strong>la marca, la UI y la experiencia in-game deben hablar el mismo lenguaje visual.</strong>',
@@ -2108,6 +1633,96 @@
       btn.style.setProperty('--my', (e.clientY - r.top)  + 'px');
     });
   });
+
+  /* ── Global parallax — all [data-parallax] elements ── */
+  (function() {
+    const els = Array.from(document.querySelectorAll('[data-parallax]')).map(el => ({
+      el,
+      factor: parseFloat(el.dataset.parallax) || 0.1,
+      cur: 0
+    }));
+    if (!els.length) return;
+    els.forEach(({ el }) => { el.style.willChange = 'transform'; });
+
+    const vh = () => window.innerHeight;
+    let scrollY = window.scrollY;
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+
+    (function tick() {
+      els.forEach(item => {
+        const rect = item.el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const offset = (center - vh() / 2) * item.factor;
+        item.cur += (offset - item.cur) * 0.1;
+        item.el.style.transform = 'translateY(' + item.cur.toFixed(2) + 'px)';
+      });
+      requestAnimationFrame(tick);
+    })();
+  })();
+
+  /* ── Dynamic hero gradient — ambient oscillation + mouse tracking ── */
+  (function() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    // current smoothed positions
+    let bx = 8,  by = 0;
+    let gx = 92, gy = 100;
+
+    // mouse delta — extra offset added on top of ambient motion
+    let mdx = 0, mdy = 0;
+    let mgx = 0, mgy = 0;
+    let tmdx = 0, tmdy = 0;
+    let tmgx = 0, tmgy = 0;
+
+    hero.addEventListener('mousemove', e => {
+      const r = hero.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width)  * 100;
+      const my = ((e.clientY - r.top)  / r.height) * 100;
+      // pink attracted to cursor; green pushed away — stronger influence
+      tmdx = (mx - 50) * 0.50;
+      tmdy = (my - 50) * 0.42;
+      tmgx = -(mx - 50) * 0.42;
+      tmgy = -(my - 50) * 0.35;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      tmdx = 0; tmdy = 0;
+      tmgx = 0; tmgy = 0;
+    });
+
+    function tick(ts) {
+      const t = ts / 1000;
+
+      // ambient: wide organic drift — bigger amplitude, faster feel
+      const abx =  8 + Math.sin(t * 0.45) * 28 + Math.cos(t * 0.27) * 14;
+      const aby =  2 + Math.cos(t * 0.38) * 32 + Math.sin(t * 0.22) * 16;
+      const agx = 92 + Math.cos(t * 0.36) * 24 + Math.sin(t * 0.24) * 12;
+      const agy = 98 + Math.sin(t * 0.31) * 28 + Math.cos(t * 0.28) * 14;
+
+      // smooth mouse deltas — stronger pull
+      mdx = lerp(mdx, tmdx, 0.08);
+      mdy = lerp(mdy, tmdy, 0.08);
+      mgx = lerp(mgx, tmgx, 0.08);
+      mgy = lerp(mgy, tmgy, 0.08);
+
+      // lerp actual positions — faster tracking
+      bx = lerp(bx, abx + mdx, 0.055);
+      by = lerp(by, aby + mdy, 0.055);
+      gx = lerp(gx, agx + mgx, 0.055);
+      gy = lerp(gy, agy + mgy, 0.055);
+
+      hero.style.setProperty('--bx', bx.toFixed(2) + '%');
+      hero.style.setProperty('--by', by.toFixed(2) + '%');
+      hero.style.setProperty('--gx', gx.toFixed(2) + '%');
+      hero.style.setProperty('--gy', gy.toFixed(2) + '%');
+
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
 </script>
 </body>
 </html>
